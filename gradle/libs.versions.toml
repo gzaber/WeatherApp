@@ -8,6 +8,7 @@ composeBom = "2025.01.01"
 room = "2.6.1"
 ksp = "2.0.21-1.0.27"
 retrofit = "2.11.0"
+koin = "4.0.2"
 junit = "4.13.2"
 
 [libraries]
@@ -25,6 +26,9 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 retrofit2-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit2-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 
 [plugins]
