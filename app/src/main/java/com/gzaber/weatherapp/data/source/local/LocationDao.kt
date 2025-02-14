@@ -5,9 +5,11 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LocationDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(location: LocationEntity)
 
@@ -15,5 +17,5 @@ interface LocationDao {
     suspend fun delete(location: LocationEntity)
 
     @Query("SELECT * FROM locations")
-    suspend fun readAll(): List<LocationEntity>
+    fun observeAll(): Flow<List<LocationEntity>>
 }

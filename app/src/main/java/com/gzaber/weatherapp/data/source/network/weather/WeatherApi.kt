@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherApi {
-    @GET
+    @GET("forecast")
     suspend fun getCurrentWeather(
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
@@ -15,7 +15,7 @@ interface WeatherApi {
         @Query("forecast_days") forecastDays: Int = 1
     ): NetworkCurrentWeather
 
-    @GET
+    @GET("forecast")
     suspend fun getHourlyWeather(
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
@@ -23,7 +23,7 @@ interface WeatherApi {
         @Query("forecast_days") forecastDays: Int = 1
     ): NetworkHourlyWeather
 
-    @GET
+    @GET("forecast")
     suspend fun getDailyWeather(
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
@@ -31,6 +31,6 @@ interface WeatherApi {
     ): NetworkDailyWeather
 
     companion object {
-        const val BASE_URL: String = "https://api.open-meteo.com/v1/forecast"
+        const val BASE_URL: String = "https://api.open-meteo.com/v1/"
     }
 }

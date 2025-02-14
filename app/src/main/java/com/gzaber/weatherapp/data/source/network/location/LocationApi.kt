@@ -5,10 +5,10 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface LocationApi {
-    @GET
+    @GET("search")
     suspend fun search(@Query("name") name: String): NetworkLocationResults
 
     companion object {
-        const val BASE_URL: String = "https://geocoding-api.open-meteo.com/v1/search"
+        const val BASE_URL: String = "https://geocoding-api.open-meteo.com/v1/"
     }
 }

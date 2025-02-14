@@ -55,6 +55,8 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.retrofit2.retrofit)
     implementation(libs.retrofit2.converter.gson)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 
     testImplementation(libs.junit)
 
