@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.gzaber.weatherapp.ui.search.SearchScreen
 import com.gzaber.weatherapp.ui.theme.WeatherAppTheme
+import com.gzaber.weatherapp.ui.weather.WeatherScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,7 +14,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WeatherAppTheme {
-                SearchScreen()
+                WeatherScreen(onSearchClick = {})
             }
         }
     }
