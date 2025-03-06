@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gzaber.weatherapp.data.repository.locations.LocationsRepository
 import com.gzaber.weatherapp.data.repository.locations.model.Location
+import com.gzaber.weatherapp.data.repository.settings.SettingsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -12,7 +13,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
-    private val locationsRepository: LocationsRepository
+    private val locationsRepository: LocationsRepository,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SearchUiState())
@@ -44,14 +46,9 @@ class SearchViewModel(
         }
     }
 
-    fun saveToLocationHistory(location: Location) {
-        viewModelScope.launch {
-            try {
-                locationsRepository.insert(location)
-            } catch (_: Throwable) {
-                _uiState.update { it.copy(isError = true) }
-            }
-        }
+    fun selectLocation(location: Location) {
+        saveToSettings(location)
+        saveToLocationHistory(location)
     }
 
     fun removeFromLocationHistory(location: Location) {
@@ -99,6 +96,26 @@ class SearchViewModel(
             } catch (e: Throwable) {
                 _uiState.update { it.copy(isError = true) }
                 Log.e("API", "searchLocation: $e")
+            }
+        }
+    }
+
+    private fun saveToSettings(location: Location) {
+        viewModelScope.launch {
+            try {
+                settingsRepository.updateLocation(location)
+            } catch (_: Throwable) {
+                _uiState.update { it.copy(isError = true) }
+            }
+        }
+    }
+
+    private fun saveToLocationHistory(location: Location) {
+        viewModelScope.launch {
+            try {
+                locationsRepository.insert(location)
+            } catch (_: Throwable) {
+                _uiState.update { it.copy(isError = true) }
             }
         }
     }

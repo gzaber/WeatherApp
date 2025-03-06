@@ -37,7 +37,7 @@ fun SearchScreen(
             contentPadding = contentPadding,
             onSearchTextChanged = viewModel::onSearchTextChanged,
             onSearchTextCleared = viewModel::onSearchTextCleared,
-            onLocationClick = viewModel::saveToLocationHistory,
+            onLocationClick = viewModel::selectLocation,
             onLocationSwipe = viewModel::removeFromLocationHistory
         )
     }
