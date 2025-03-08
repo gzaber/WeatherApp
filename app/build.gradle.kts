@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.google.protobuf)
+    alias(libs.plugins.serialization)
 }
 
 android {
@@ -60,10 +61,12 @@ dependencies {
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
-
-    testImplementation(libs.junit)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 
     debugImplementation(libs.androidx.ui.tooling)
+
+    testImplementation(libs.junit)
 }
 
 protobuf {

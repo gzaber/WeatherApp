@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.gzaber.weatherapp.ui.theme.WeatherAppTheme
-import com.gzaber.weatherapp.ui.weather.WeatherScreen
 
 class WeatherActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,7 +12,7 @@ class WeatherActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WeatherAppTheme {
-                WeatherScreen(onSearchClick = {})
+                WeatherNavigation()
             }
         }
     }
