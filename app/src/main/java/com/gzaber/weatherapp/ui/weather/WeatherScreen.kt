@@ -20,7 +20,7 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeatherScreen(
-    onSearchClick: () -> Unit,
+    onNavigateToSearch: () -> Unit,
     viewModel: WeatherViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -35,7 +35,7 @@ fun WeatherScreen(
                     )
                 },
                 actions = {
-                    IconButton(onClick = onSearchClick) {
+                    IconButton(onClick = onNavigateToSearch) {
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = "Search screen"
