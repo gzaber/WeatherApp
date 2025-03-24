@@ -103,7 +103,12 @@ class SearchViewModel(
     private fun saveToSettings(location: Location) {
         viewModelScope.launch {
             try {
-                settingsRepository.updateLocation(location)
+                settingsRepository.updateLocation(
+                    latitude = location.latitude,
+                    longitude = location.longitude,
+                    name = location.name,
+                    description = location.description
+                )
             } catch (_: Throwable) {
                 _uiState.update { it.copy(isError = true) }
             }
