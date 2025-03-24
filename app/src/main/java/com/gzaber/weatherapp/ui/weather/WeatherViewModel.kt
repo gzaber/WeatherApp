@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gzaber.weatherapp.data.repository.settings.SettingsRepository
 import com.gzaber.weatherapp.data.repository.weather.WeatherRepository
+import com.gzaber.weatherapp.ui.weather.util.toWeatherUnits
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -22,10 +23,18 @@ class WeatherViewModel(
         viewModelScope.launch {
             settingsRepository.observeLocation()
                 .catch { _uiState.update { it.copy(isError = true) } }
-                .collect { location ->
-                    _uiState.update { it.copy(location = location) }
-                    getCurrentWeather()
-                    getHourlyWeather()
+                .collect { locationSettings ->
+                    _uiState.update { it.copy(locationSettings = locationSettings) }
+                    getWeather()
+                }
+        }
+
+        viewModelScope.launch {
+            settingsRepository.observeWeatherUnits()
+                .catch { _uiState.update { it.copy(isError = true) } }
+                .collect { weatherUnitsSettings ->
+                    _uiState.update { it.copy(weatherUnitsSettings = weatherUnitsSettings) }
+                    getWeather()
                 }
         }
     }
@@ -34,8 +43,12 @@ class WeatherViewModel(
         _uiState.update {
             it.copy(weatherForecastType = weatherForecastType)
         }
-        if (weatherForecastType == WeatherForecastType.DAILY && _uiState.value.dailyWeather.daily.isEmpty())
-            getDailyWeather()
+    }
+
+    private fun getWeather() {
+        getCurrentWeather()
+        getHourlyWeather()
+        getDailyWeather()
     }
 
     private fun getCurrentWeather() {
@@ -45,8 +58,9 @@ class WeatherViewModel(
                 _uiState.update {
                     it.copy(
                         currentWeather = weatherRepository.getCurrentWeather(
-                            it.location.latitude,
-                            it.location.longitude
+                            it.locationSettings.latitude,
+                            it.locationSettings.longitude,
+                            it.weatherUnitsSettings.toWeatherUnits()
                         ),
                         isLoadingCurrentWeather = false
                     )
@@ -64,8 +78,9 @@ class WeatherViewModel(
                 _uiState.update {
                     it.copy(
                         dailyWeather = weatherRepository.getDailyWeather(
-                            it.location.latitude,
-                            it.location.longitude
+                            it.locationSettings.latitude,
+                            it.locationSettings.longitude,
+                            it.weatherUnitsSettings.toWeatherUnits()
                         ),
                         isLoadingDailyWeather = false
                     )
@@ -83,8 +98,9 @@ class WeatherViewModel(
                 _uiState.update {
                     it.copy(
                         hourlyWeather = weatherRepository.getHourlyWeather(
-                            it.location.latitude,
-                            it.location.longitude
+                            it.locationSettings.latitude,
+                            it.locationSettings.longitude,
+                            it.weatherUnitsSettings.toWeatherUnits()
                         ),
                         isLoadingHourlyWeather = false
                     )

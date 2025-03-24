@@ -30,7 +30,7 @@ fun WeatherScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = uiState.location.name,
+                        text = uiState.locationSettings.name,
                         fontWeight = FontWeight.Bold
                     )
                 },

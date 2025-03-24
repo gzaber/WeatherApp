@@ -1,4 +1,4 @@
-package com.gzaber.weatherapp.ui.util
+package com.gzaber.weatherapp.ui.weather.util
 
 import com.gzaber.weatherapp.data.repository.settings.model.LocationSettings
 import com.gzaber.weatherapp.data.repository.settings.model.WeatherUnitsSettings
