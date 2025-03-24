@@ -4,8 +4,11 @@ option java_package = "com.gzaber.weatherapp";
 option java_multiple_files = true;
 
 message Settings {
-  string name = 1;
-  double latitude = 2;
-  double longitude = 3;
+  double latitude = 1;
+  double longitude = 2;
+  string name = 3;
   string description = 4;
+  string temperatureUnit = 5;
+  string windSpeedUnit = 6;
+  string precipitationUnit = 7;
 }
