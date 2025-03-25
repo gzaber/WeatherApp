@@ -3,12 +3,12 @@ syntax = "proto3";
 option java_package = "com.gzaber.weatherapp";
 option java_multiple_files = true;
 
-message Settings {
+message UserPreferences {
   double latitude = 1;
   double longitude = 2;
   string name = 3;
   string description = 4;
-  string temperatureUnit = 5;
-  string windSpeedUnit = 6;
-  string precipitationUnit = 7;
+  string temperature_unit = 5;
+  string wind_speed_unit = 6;
+  string precipitation_unit = 7;
 }

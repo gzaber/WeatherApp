@@ -1,6 +1,6 @@
-package com.gzaber.weatherapp.data.repository.settings.model
+package com.gzaber.weatherapp.data.repository.userpreferences.model
 
-data class WeatherUnitsSettings(
+data class WeatherUnitsPreferences(
     val temperatureUnit: String,
     val windSpeedUnit: String,
     val precipitationUnit: String

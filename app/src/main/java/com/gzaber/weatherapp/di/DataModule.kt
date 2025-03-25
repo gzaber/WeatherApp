@@ -5,11 +5,12 @@ import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import androidx.room.Room
 import com.gzaber.weatherapp.Settings
+import com.gzaber.weatherapp.UserPreferences
 import com.gzaber.weatherapp.data.repository.locations.DefaultLocationsRepository
 import com.gzaber.weatherapp.data.repository.locations.LocationsRepository
-import com.gzaber.weatherapp.data.repository.settings.DefaultSettingsRepository
-import com.gzaber.weatherapp.data.repository.settings.SettingsRepository
-import com.gzaber.weatherapp.data.repository.settings.SettingsSerializer
+import com.gzaber.weatherapp.data.repository.userpreferences.DefaultUserPreferencesRepository
+import com.gzaber.weatherapp.data.repository.userpreferences.UserPreferencesRepository
+import com.gzaber.weatherapp.data.repository.userpreferences.UserPreferencesSerializer
 import com.gzaber.weatherapp.data.repository.weather.DefaultWeatherRepository
 import com.gzaber.weatherapp.data.repository.weather.WeatherRepository
 import com.gzaber.weatherapp.data.source.local.LocationDao
@@ -21,7 +22,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val DATA_STORE_FILE_NAME = "settings.pb"
+private const val DATA_STORE_FILE_NAME = "user_preferences.pb"
 
 val dataModule = module {
 
@@ -61,15 +62,15 @@ val dataModule = module {
         DefaultWeatherRepository(get())
     }
 
-    single<DataStore<Settings>> {
+    single<DataStore<UserPreferences>> {
         DataStoreFactory.create(
-            serializer = SettingsSerializer,
+            serializer = UserPreferencesSerializer,
             produceFile = {
                 androidContext().dataStoreFile(DATA_STORE_FILE_NAME)
             })
     }
 
-    single<SettingsRepository> {
-        DefaultSettingsRepository(get())
+    single<UserPreferencesRepository> {
+        DefaultUserPreferencesRepository(get())
     }
 }

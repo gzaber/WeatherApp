@@ -1,6 +1,6 @@
-package com.gzaber.weatherapp.data.repository.settings.model
+package com.gzaber.weatherapp.data.repository.userpreferences.model
 
-data class LocationSettings(
+data class LocationPreferences(
     val name: String,
     val latitude: Double,
     val longitude: Double,
