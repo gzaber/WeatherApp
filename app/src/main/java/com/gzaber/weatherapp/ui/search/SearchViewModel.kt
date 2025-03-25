@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gzaber.weatherapp.data.repository.locations.LocationsRepository
 import com.gzaber.weatherapp.data.repository.locations.model.Location
-import com.gzaber.weatherapp.data.repository.settings.SettingsRepository
+import com.gzaber.weatherapp.data.repository.userpreferences.UserPreferencesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel(
     private val locationsRepository: LocationsRepository,
-    private val settingsRepository: SettingsRepository
+    private val userPreferencesRepository: UserPreferencesRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SearchUiState())
@@ -103,7 +103,7 @@ class SearchViewModel(
     private fun saveToSettings(location: Location) {
         viewModelScope.launch {
             try {
-                settingsRepository.updateLocation(
+                userPreferencesRepository.updateLocation(
                     latitude = location.latitude,
                     longitude = location.longitude,
                     name = location.name,

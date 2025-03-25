@@ -1,19 +1,19 @@
 package com.gzaber.weatherapp.ui.weather
 
-import com.gzaber.weatherapp.data.repository.settings.model.LocationSettings
-import com.gzaber.weatherapp.data.repository.settings.model.WeatherUnitsSettings
+import com.gzaber.weatherapp.data.repository.userpreferences.model.LocationPreferences
+import com.gzaber.weatherapp.data.repository.userpreferences.model.WeatherUnitsPreferences
 import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeather
 import com.gzaber.weatherapp.data.repository.weather.model.DailyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
-import com.gzaber.weatherapp.ui.weather.util.emptyCurrentWeather
-import com.gzaber.weatherapp.ui.weather.util.emptyDailyWeather
-import com.gzaber.weatherapp.ui.weather.util.emptyHourlyWeather
-import com.gzaber.weatherapp.ui.weather.util.emptyLocationSettings
-import com.gzaber.weatherapp.ui.weather.util.emptyWeatherUnitsSettings
+import com.gzaber.weatherapp.ui.util.emptyCurrentWeather
+import com.gzaber.weatherapp.ui.util.emptyDailyWeather
+import com.gzaber.weatherapp.ui.util.emptyHourlyWeather
+import com.gzaber.weatherapp.ui.util.emptyLocationPreferences
+import com.gzaber.weatherapp.ui.util.emptyWeatherUnitsPreferences
 
 data class WeatherUiState(
-    val locationSettings: LocationSettings = emptyLocationSettings(),
-    val weatherUnitsSettings: WeatherUnitsSettings = emptyWeatherUnitsSettings(),
+    val locationPreferences: LocationPreferences = emptyLocationPreferences(),
+    val weatherUnitsPreferences: WeatherUnitsPreferences = emptyWeatherUnitsPreferences(),
     val currentWeather: CurrentWeather = emptyCurrentWeather(),
     val hourlyWeather: HourlyWeather = emptyHourlyWeather(),
     val dailyWeather: DailyWeather = emptyDailyWeather(),

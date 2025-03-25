@@ -2,6 +2,7 @@ package com.gzaber.weatherapp.ui.weather
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -20,6 +21,7 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeatherScreen(
+    onNavigateToSettings: () -> Unit,
     onNavigateToSearch: () -> Unit,
     viewModel: WeatherViewModel = koinViewModel()
 ) {
@@ -30,9 +32,17 @@ fun WeatherScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = uiState.locationSettings.name,
+                        text = uiState.locationPreferences.name,
                         fontWeight = FontWeight.Bold
                     )
+                },
+                navigationIcon = {
+                    IconButton(onClick = onNavigateToSettings) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Settings screen"
+                        )
+                    }
                 },
                 actions = {
                     IconButton(onClick = onNavigateToSearch) {
