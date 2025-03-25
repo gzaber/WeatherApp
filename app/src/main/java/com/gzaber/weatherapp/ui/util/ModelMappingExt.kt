@@ -1,4 +1,4 @@
-package com.gzaber.weatherapp.ui.weather.util
+package com.gzaber.weatherapp.ui.util
 
 import com.gzaber.weatherapp.data.repository.userpreferences.model.WeatherUnitsPreferences
 import com.gzaber.weatherapp.data.repository.weather.model.PrecipitationUnit
@@ -13,4 +13,10 @@ fun WeatherUnitsPreferences.toWeatherUnits() = WeatherUnits(
         WindSpeedUnit.valueOf(windSpeedUnit) else WindSpeedUnit.KILOMETERS_PER_HOUR,
     precipitationUnit = if (precipitationUnit.isNotBlank())
         PrecipitationUnit.valueOf(precipitationUnit) else PrecipitationUnit.MILLIMETER
+)
+
+fun WeatherUnits.toPreferences() = WeatherUnitsPreferences(
+    temperatureUnit = temperatureUnit.value,
+    windSpeedUnit = windSpeedUnit.value,
+    precipitationUnit = precipitationUnit.value
 )
