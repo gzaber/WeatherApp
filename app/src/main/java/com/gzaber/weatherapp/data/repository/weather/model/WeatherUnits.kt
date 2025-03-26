@@ -18,7 +18,7 @@ enum class PrecipitationUnit(val value: String) {
 }
 
 data class WeatherUnits(
-    val temperatureUnit: TemperatureUnit,
-    val windSpeedUnit: WindSpeedUnit,
-    val precipitationUnit: PrecipitationUnit
+    val temperatureUnit: TemperatureUnit = TemperatureUnit.CELSIUS,
+    val windSpeedUnit: WindSpeedUnit = WindSpeedUnit.KILOMETERS_PER_HOUR,
+    val precipitationUnit: PrecipitationUnit = PrecipitationUnit.MILLIMETER
 )
