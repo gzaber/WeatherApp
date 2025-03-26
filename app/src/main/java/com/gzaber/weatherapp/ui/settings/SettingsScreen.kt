@@ -14,9 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.font.FontWeight
-import com.gzaber.weatherapp.data.repository.weather.model.PrecipitationUnit
-import com.gzaber.weatherapp.data.repository.weather.model.TemperatureUnit
-import com.gzaber.weatherapp.data.repository.weather.model.WindSpeedUnit
 import com.gzaber.weatherapp.ui.settings.composable.SettingsContent
 import org.koin.androidx.compose.koinViewModel
 
@@ -52,12 +49,12 @@ fun SettingsScreen(
     ) { contentPadding ->
         SettingsContent(
             contentPadding = contentPadding,
-            temperatureUnitOptions = TemperatureUnit.entries.map { it.value },
-            windSpeedUnitOptions = WindSpeedUnit.entries.map { it.value },
-            precipitationUnitOptions = PrecipitationUnit.entries.map { it.value },
-            selectedTemperatureUnit = uiState.weatherUnitsPreferences.temperatureUnit,
-            selectedWindSpeedUnit = uiState.weatherUnitsPreferences.windSpeedUnit,
-            selectedPrecipitationUnit = uiState.weatherUnitsPreferences.precipitationUnit,
+            temperatureUnitOptions = uiState.temperatureUnitOptions,
+            windSpeedUnitOptions = uiState.windSpeedUnitOptions,
+            precipitationUnitOptions = uiState.precipitationUnitOptions,
+            selectedTemperatureUnit = uiState.selectedTemperatureUnit,
+            selectedWindSpeedUnit = uiState.selectedWindSpeedUnit,
+            selectedPrecipitationUnit = uiState.selectedPrecipitationUnit,
             onTemperatureUnitSelected = viewModel::onTemperatureUnitSelected,
             onWindSpeedUnitSelected = viewModel::onWindSpeedUnitSelected,
             onPrecipitationUnitSelected = viewModel::onPrecipitationUnitSelected

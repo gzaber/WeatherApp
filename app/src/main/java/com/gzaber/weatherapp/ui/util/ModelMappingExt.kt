@@ -14,9 +14,3 @@ fun WeatherUnitsPreferences.toWeatherUnits() = WeatherUnits(
     precipitationUnit = if (precipitationUnit.isNotBlank())
         PrecipitationUnit.valueOf(precipitationUnit) else PrecipitationUnit.MILLIMETER
 )
-
-fun WeatherUnits.toPreferences() = WeatherUnitsPreferences(
-    temperatureUnit = temperatureUnit.value,
-    windSpeedUnit = windSpeedUnit.value,
-    precipitationUnit = precipitationUnit.value
-)
