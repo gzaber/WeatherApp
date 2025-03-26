@@ -4,7 +4,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import androidx.room.Room
-import com.gzaber.weatherapp.Settings
 import com.gzaber.weatherapp.UserPreferences
 import com.gzaber.weatherapp.data.repository.locations.DefaultLocationsRepository
 import com.gzaber.weatherapp.data.repository.locations.LocationsRepository
