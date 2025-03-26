@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option java_package = "com.gzaber.weatherapp";
+option java_multiple_files = true;
+
+message UserPreferences {
+  double latitude = 1;
+  double longitude = 2;
+  string name = 3;
+  string description = 4;
+  string temperature_unit = 5;
+  string wind_speed_unit = 6;
+  string precipitation_unit = 7;
+}

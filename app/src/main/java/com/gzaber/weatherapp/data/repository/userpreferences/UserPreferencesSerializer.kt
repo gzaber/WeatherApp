@@ -1,26 +1,26 @@
-package com.gzaber.weatherapp.data.repository.settings
+package com.gzaber.weatherapp.data.repository.userpreferences
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import com.google.protobuf.InvalidProtocolBufferException
-import com.gzaber.weatherapp.Settings
+import com.gzaber.weatherapp.UserPreferences
 import java.io.InputStream
 import java.io.OutputStream
 
-object SettingsSerializer : Serializer<Settings> {
+object UserPreferencesSerializer : Serializer<UserPreferences> {
 
-    override val defaultValue: Settings = Settings.getDefaultInstance()
+    override val defaultValue: UserPreferences = UserPreferences.getDefaultInstance()
 
-    override suspend fun readFrom(input: InputStream): Settings {
+    override suspend fun readFrom(input: InputStream): UserPreferences {
         try {
-            return Settings.parseFrom(input)
+            return UserPreferences.parseFrom(input)
         } catch (exception: InvalidProtocolBufferException) {
             throw CorruptionException("Cannot read proto.", exception)
         }
     }
 
     override suspend fun writeTo(
-        t: Settings,
+        t: UserPreferences,
         output: OutputStream
     ) = t.writeTo(output)
 }

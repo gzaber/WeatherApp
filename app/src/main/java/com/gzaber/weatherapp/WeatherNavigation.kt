@@ -7,11 +7,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.gzaber.weatherapp.ui.search.SearchScreen
+import com.gzaber.weatherapp.ui.settings.SettingsScreen
 import com.gzaber.weatherapp.ui.weather.WeatherScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
 object Weather
+
+@Serializable
+object Settings
 
 @Serializable
 object Search
@@ -28,7 +32,14 @@ fun WeatherNavigation(
     ) {
         composable<Weather> {
             WeatherScreen(
+                onNavigateToSettings = { navController.navigate(route = Settings) },
                 onNavigateToSearch = { navController.navigate(route = Search) }
+            )
+        }
+
+        composable<Settings> {
+            SettingsScreen(
+                onNavigateBack = { navController.popBackStack() }
             )
         }
 
