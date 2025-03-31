@@ -28,6 +28,7 @@ import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeather
 import com.gzaber.weatherapp.data.repository.weather.model.DailyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
 import com.gzaber.weatherapp.ui.weather.WeatherForecastType
+import com.gzaber.weatherapp.ui.weather.util.toSymbol
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -54,7 +55,7 @@ fun WeatherContent(
                 .weight(1f)
         )
         Text(
-            text = "${currentWeather.temperature.value}${currentWeather.temperature.unit}",
+            text = "${currentWeather.temperature.value}${currentWeather.temperature.unit.toSymbol()}",
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.displayLarge
         )
@@ -72,21 +73,21 @@ fun WeatherContent(
                 icon = Icons.Default.LocationOn,
                 iconContentDescription = "Wind speed",
                 value = "${currentWeather.windSpeed.value}",
-                unit = currentWeather.windSpeed.unit,
+                unit = currentWeather.windSpeed.unit.toSymbol(),
                 description = "Wind"
             )
             WeatherParameter(
                 icon = Icons.Default.AccountBox,
                 iconContentDescription = "Humidity",
                 value = "${currentWeather.humidity.value}",
-                unit = currentWeather.humidity.unit,
+                unit = currentWeather.humidity.unit.toSymbol(),
                 description = "Humidity"
             )
             WeatherParameter(
                 icon = Icons.Default.Build,
                 iconContentDescription = "Rain",
                 value = "${currentWeather.rain.value}",
-                unit = currentWeather.rain.unit,
+                unit = currentWeather.rain.unit.toSymbol(),
                 description = "Rain"
             )
         }
@@ -118,7 +119,7 @@ fun WeatherContent(
                         time = weather.time.format(DateTimeFormatter.ofPattern("HH:mm")),
                         icon = Icons.Default.LocationOn,
                         value = "${weather.temperature}",
-                        unit = hourlyWeather.temperatureUnit
+                        unit = hourlyWeather.temperatureUnit.toSymbol()
                     )
                 }
             } else {
@@ -127,7 +128,7 @@ fun WeatherContent(
                         time = weather.date.format(DateTimeFormatter.ofPattern("EE")),
                         icon = Icons.Default.LocationOn,
                         value = "${weather.maxTemperature}",
-                        unit = dailyWeather.maxTemperatureUnit
+                        unit = dailyWeather.temperatureUnit.toSymbol()
                     )
                 }
             }
