@@ -4,7 +4,7 @@ import java.time.LocalDate
 
 data class DailyWeatherParameters(
     val date: LocalDate,
-    val code: Int,
+    val condition: WeatherCondition,
     val minTemperature: Double,
     val maxTemperature: Double
 )

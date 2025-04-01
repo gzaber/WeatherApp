@@ -4,8 +4,8 @@ import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeather
 import com.gzaber.weatherapp.data.repository.weather.model.DailyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.WeatherUnits
-import com.gzaber.weatherapp.data.repository.weather.model.toExternal
-import com.gzaber.weatherapp.data.repository.weather.model.toQueryValue
+import com.gzaber.weatherapp.data.repository.weather.util.toExternal
+import com.gzaber.weatherapp.data.repository.weather.util.toQueryValue
 import com.gzaber.weatherapp.data.source.network.weather.WeatherApi
 
 class DefaultWeatherRepository(

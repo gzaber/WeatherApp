@@ -28,6 +28,7 @@ import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeather
 import com.gzaber.weatherapp.data.repository.weather.model.DailyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
 import com.gzaber.weatherapp.ui.weather.WeatherForecastType
+import com.gzaber.weatherapp.ui.weather.util.toDescription
 import com.gzaber.weatherapp.ui.weather.util.toSymbol
 import java.time.format.DateTimeFormatter
 
@@ -60,7 +61,7 @@ fun WeatherContent(
             style = MaterialTheme.typography.displayLarge
         )
         Text(
-            text = "${currentWeather.weatherCode} Cloudy",
+            text = currentWeather.condition.toDescription(),
             style = MaterialTheme.typography.displayMedium
         )
         Row(

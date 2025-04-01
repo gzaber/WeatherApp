@@ -1,4 +1,9 @@
-package com.gzaber.weatherapp.data.repository.weather.model
+package com.gzaber.weatherapp.data.repository.weather.util
+
+import com.gzaber.weatherapp.data.repository.weather.model.HumidityUnit
+import com.gzaber.weatherapp.data.repository.weather.model.PrecipitationUnit
+import com.gzaber.weatherapp.data.repository.weather.model.TemperatureUnit
+import com.gzaber.weatherapp.data.repository.weather.model.WindSpeedUnit
 
 fun String.toTemperatureUnit() = when (this) {
     "°C" -> TemperatureUnit.CELSIUS
