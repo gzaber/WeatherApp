@@ -15,8 +15,7 @@ interface WeatherApi {
         @Query("wind_speed_unit") windSpeedUnit: String,
         @Query("precipitation_unit") precipitationUnit: String,
         @Query("timezone") timezone: String = "auto",
-        @Query("current") current: String = "temperature_2m,relative_humidity_2m,rain,weather_code,wind_speed_10m",
-        @Query("forecast_days") forecastDays: Int = 1
+        @Query("current") current: String = "weather_code,temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation"
     ): NetworkCurrentWeather
 
     @GET("forecast")
@@ -24,11 +23,9 @@ interface WeatherApi {
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
         @Query("temperature_unit") temperatureUnit: String,
-        @Query("wind_speed_unit") windSpeedUnit: String,
-        @Query("precipitation_unit") precipitationUnit: String,
+        @Query("hourly") hourly: String = "weather_code,temperature_2m",
+        @Query("forecast_days") forecastDays: Int = 1,
         @Query("timezone") timezone: String = "auto",
-        @Query("hourly") current: String = "temperature_2m,weather_code",
-        @Query("forecast_days") forecastDays: Int = 1
     ): NetworkHourlyWeather
 
     @GET("forecast")
@@ -36,10 +33,8 @@ interface WeatherApi {
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
         @Query("temperature_unit") temperatureUnit: String,
-        @Query("wind_speed_unit") windSpeedUnit: String,
-        @Query("precipitation_unit") precipitationUnit: String,
+        @Query("daily") daily: String = "weather_code,temperature_2m_max,temperature_2m_min",
         @Query("timezone") timezone: String = "auto",
-        @Query("daily") current: String = "weather_code,temperature_2m_max,temperature_2m_min"
     ): NetworkDailyWeather
 
     companion object {

@@ -7,7 +7,7 @@ data class NetworkCurrentWeatherUnits(
     val temperature: String,
     @SerializedName("relative_humidity_2m")
     val humidity: String,
-    val rain: String,
     @SerializedName("wind_speed_10m")
-    val windSpeed: String
+    val windSpeed: String,
+    val precipitation: String
 )

@@ -23,13 +23,13 @@ fun NetworkCurrentWeather.toExternal() = CurrentWeather(
         unit = units.humidity.toHumidityUnit(),
         value = values.humidity
     ),
-    rain = CurrentWeatherParameter(
-        unit = units.rain.toPrecipitationUnit(),
-        value = values.rain
-    ),
     windSpeed = CurrentWeatherParameter(
         unit = units.windSpeed.toWindSpeedUnit(),
         value = values.windSpeed
+    ),
+    precipitation = CurrentWeatherParameter(
+        unit = units.precipitation.toPrecipitationUnit(),
+        value = values.precipitation
     )
 )
 

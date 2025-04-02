@@ -87,8 +87,8 @@ fun WeatherContent(
             WeatherParameter(
                 icon = Icons.Default.Build,
                 iconContentDescription = "Rain",
-                value = "${currentWeather.rain.value}",
-                unit = currentWeather.rain.unit.toSymbol(),
+                value = "${currentWeather.precipitation.value}",
+                unit = currentWeather.precipitation.unit.toSymbol(),
                 description = "Rain"
             )
         }

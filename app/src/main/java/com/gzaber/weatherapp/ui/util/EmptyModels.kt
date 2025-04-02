@@ -29,8 +29,8 @@ fun emptyCurrentWeather() = CurrentWeather(
     condition = WeatherCondition.UNKNOWN,
     temperature = CurrentWeatherParameter(unit = TemperatureUnit.UNKNOWN, value = 0.0),
     humidity = CurrentWeatherParameter(unit = HumidityUnit.UNKNOWN, 0),
-    rain = CurrentWeatherParameter(unit = PrecipitationUnit.UNKNOWN, 0.0),
     windSpeed = CurrentWeatherParameter(unit = WindSpeedUnit.UNKNOWN, 0.0),
+    precipitation = CurrentWeatherParameter(unit = PrecipitationUnit.UNKNOWN, 0.0)
 )
 
 fun emptyHourlyWeather() = HourlyWeather(

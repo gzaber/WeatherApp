@@ -32,9 +32,7 @@ class DefaultWeatherRepository(
         networkDataSource.getHourlyWeather(
             latitude,
             longitude,
-            weatherUnits.temperatureUnit.toQueryValue(),
-            weatherUnits.windSpeedUnit.toQueryValue(),
-            weatherUnits.precipitationUnit.toQueryValue()
+            weatherUnits.temperatureUnit.toQueryValue()
         ).toExternal()
 
     override suspend fun getDailyWeather(
@@ -45,8 +43,6 @@ class DefaultWeatherRepository(
         networkDataSource.getDailyWeather(
             latitude,
             longitude,
-            weatherUnits.temperatureUnit.toQueryValue(),
-            weatherUnits.windSpeedUnit.toQueryValue(),
-            weatherUnits.precipitationUnit.toQueryValue()
+            weatherUnits.temperatureUnit.toQueryValue()
         ).toExternal()
 }

@@ -4,6 +4,6 @@ data class CurrentWeather(
     val condition: WeatherCondition,
     val temperature: CurrentWeatherParameter<TemperatureUnit, Double>,
     val humidity: CurrentWeatherParameter<HumidityUnit, Int>,
-    val rain: CurrentWeatherParameter<PrecipitationUnit, Double>,
-    val windSpeed: CurrentWeatherParameter<WindSpeedUnit, Double>
+    val windSpeed: CurrentWeatherParameter<WindSpeedUnit, Double>,
+    val precipitation: CurrentWeatherParameter<PrecipitationUnit, Double>
 )
