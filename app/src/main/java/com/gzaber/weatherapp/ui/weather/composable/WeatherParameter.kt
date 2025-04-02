@@ -34,7 +34,7 @@ fun WeatherParameter(
             contentDescription = iconContentDescription,
             modifier = Modifier.size(iconSize)
         )
-        Text(text = "$value$unit", style = parameterTextStyle)
+        Text(text = "$value $unit", style = parameterTextStyle)
         Text(text = description, style = descriptionTextStyle)
     }
 }

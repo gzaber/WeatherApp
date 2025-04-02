@@ -48,6 +48,10 @@ fun WeatherContent(
             .padding(contentPadding),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = currentWeather.date.format(DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy")),
+            style = MaterialTheme.typography.titleLarge
+        )
         Icon(
             imageVector = Icons.Default.Home,
             contentDescription = "Clear search text",
@@ -56,7 +60,7 @@ fun WeatherContent(
                 .weight(1f)
         )
         Text(
-            text = "${currentWeather.temperature.value}${currentWeather.temperature.unit.toSymbol()}",
+            text = "${currentWeather.temperature.value} ${currentWeather.temperature.unit.toSymbol()}",
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.displayLarge
         )
@@ -86,10 +90,10 @@ fun WeatherContent(
             )
             WeatherParameter(
                 icon = Icons.Default.Build,
-                iconContentDescription = "Rain",
+                iconContentDescription = "Precipitation",
                 value = "${currentWeather.precipitation.value}",
                 unit = currentWeather.precipitation.unit.toSymbol(),
-                description = "Rain"
+                description = "Precipitation"
             )
         }
         Row(

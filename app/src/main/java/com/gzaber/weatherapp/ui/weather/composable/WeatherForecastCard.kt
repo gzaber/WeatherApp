@@ -19,7 +19,7 @@ fun WeatherForecastCard(
     unit: String,
     modifier: Modifier = Modifier
 ) {
-    OutlinedCard(modifier = Modifier.padding(horizontal = 4.dp)) {
+    OutlinedCard(modifier = modifier.padding(horizontal = 4.dp)) {
         Column(
             modifier = Modifier.padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -29,7 +29,7 @@ fun WeatherForecastCard(
                 imageVector = icon,
                 contentDescription = "",
             )
-            Text(text = "$value$unit")
+            Text(text = "$value $unit")
         }
     }
 }

@@ -1,6 +1,9 @@
 package com.gzaber.weatherapp.data.repository.weather.model
 
+import java.time.LocalDateTime
+
 data class CurrentWeather(
+    val date: LocalDateTime,
     val condition: WeatherCondition,
     val temperature: CurrentWeatherParameter<TemperatureUnit, Double>,
     val humidity: CurrentWeatherParameter<HumidityUnit, Int>,

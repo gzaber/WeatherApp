@@ -14,6 +14,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 fun NetworkCurrentWeather.toExternal() = CurrentWeather(
+    date = LocalDateTime.parse(values.date),
     condition = values.weatherCode.toWeatherCondition(),
     temperature = CurrentWeatherParameter(
         unit = units.temperature.toTemperatureUnit(),
@@ -52,7 +53,7 @@ fun NetworkDailyWeather.toExternal() = DailyWeather(
             date = LocalDate.parse(values.date[i]),
             condition = values.weatherCodes[i].toWeatherCondition(),
             minTemperature = values.minTemperatures[i],
-            maxTemperature = values.maxTemperature[i]
+            maxTemperature = values.maxTemperatures[i]
         )
     }
 )
