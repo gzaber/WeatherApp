@@ -107,7 +107,7 @@ class SearchViewModel(
                     latitude = location.latitude,
                     longitude = location.longitude,
                     name = location.name,
-                    description = location.description
+                    country = location.country
                 )
             } catch (_: Throwable) {
                 _uiState.update { it.copy(isError = true) }

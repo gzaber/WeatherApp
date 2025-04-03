@@ -17,7 +17,7 @@ fun emptyLocationPreferences() = LocationPreferences(
     latitude = 0.0,
     longitude = 0.0,
     name = "",
-    description = ""
+    country = ""
 )
 
 fun emptyWeatherUnitsPreferences() = WeatherUnitsPreferences(

@@ -24,7 +24,7 @@ fun LocationListItem(
                 Text(location.name)
             },
             supportingContent = {
-                Text(location.description)
+                Text(location.country)
             },
             leadingContent = {
                 Icon(

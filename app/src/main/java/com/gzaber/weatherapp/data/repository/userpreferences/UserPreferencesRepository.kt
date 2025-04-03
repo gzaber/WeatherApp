@@ -10,7 +10,7 @@ interface UserPreferencesRepository {
         latitude: Double,
         longitude: Double,
         name: String,
-        description: String
+        country: String
     )
 
     suspend fun updateTemperatureUnit(temperatureUnit: String)

@@ -7,7 +7,7 @@ message UserPreferences {
   double latitude = 1;
   double longitude = 2;
   string name = 3;
-  string description = 4;
+  string country = 4;
   string temperature_unit = 5;
   string wind_speed_unit = 6;
   string precipitation_unit = 7;
