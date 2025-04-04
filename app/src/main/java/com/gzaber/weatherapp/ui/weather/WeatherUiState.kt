@@ -5,14 +5,18 @@ import com.gzaber.weatherapp.data.repository.userpreferences.model.WeatherUnitsP
 import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeather
 import com.gzaber.weatherapp.data.repository.weather.model.DailyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
+import com.gzaber.weatherapp.ui.util.defaultLocationPreferences
 import com.gzaber.weatherapp.ui.util.emptyCurrentWeather
 import com.gzaber.weatherapp.ui.util.emptyDailyWeather
 import com.gzaber.weatherapp.ui.util.emptyHourlyWeather
-import com.gzaber.weatherapp.ui.util.emptyLocationPreferences
 import com.gzaber.weatherapp.ui.util.emptyWeatherUnitsPreferences
 
+enum class WeatherForecastType {
+    DAILY, HOURLY
+}
+
 data class WeatherUiState(
-    val locationPreferences: LocationPreferences = emptyLocationPreferences(),
+    val locationPreferences: LocationPreferences = defaultLocationPreferences(),
     val weatherUnitsPreferences: WeatherUnitsPreferences = emptyWeatherUnitsPreferences(),
     val currentWeather: CurrentWeather = emptyCurrentWeather(),
     val hourlyWeather: HourlyWeather = emptyHourlyWeather(),
@@ -23,7 +27,3 @@ data class WeatherUiState(
     val isLoadingDailyWeather: Boolean = false,
     val isError: Boolean = false
 )
-
-enum class WeatherForecastType {
-    DAILY, HOURLY
-}

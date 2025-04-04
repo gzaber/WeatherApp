@@ -13,11 +13,11 @@ import com.gzaber.weatherapp.data.repository.weather.model.WeatherCondition
 import com.gzaber.weatherapp.data.repository.weather.model.WindSpeedUnit
 import java.time.LocalDateTime
 
-fun emptyLocationPreferences() = LocationPreferences(
-    latitude = 0.0,
-    longitude = 0.0,
-    name = "",
-    country = ""
+fun defaultLocationPreferences() = LocationPreferences(
+    latitude = 52.22977,
+    longitude = 21.01178,
+    name = "Warsaw",
+    country = "Poland"
 )
 
 fun emptyWeatherUnitsPreferences() = WeatherUnitsPreferences(
