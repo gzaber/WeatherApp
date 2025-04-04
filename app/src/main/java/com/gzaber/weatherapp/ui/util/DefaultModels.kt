@@ -20,13 +20,13 @@ fun defaultLocationPreferences() = LocationPreferences(
     country = "Poland"
 )
 
-fun emptyWeatherUnitsPreferences() = WeatherUnitsPreferences(
+fun defaultWeatherUnitsPreferences() = WeatherUnitsPreferences(
     temperatureUnit = "",
     windSpeedUnit = "",
     precipitationUnit = ""
 )
 
-fun emptyCurrentWeather() = CurrentWeather(
+fun defaultCurrentWeather() = CurrentWeather(
     date = LocalDateTime.MIN,
     condition = WeatherCondition.UNKNOWN,
     temperature = CurrentWeatherParameter(unit = TemperatureUnit.UNKNOWN, value = 0.0),
@@ -35,12 +35,12 @@ fun emptyCurrentWeather() = CurrentWeather(
     precipitation = CurrentWeatherParameter(unit = PrecipitationUnit.UNKNOWN, 0.0)
 )
 
-fun emptyHourlyWeather() = HourlyWeather(
+fun defaultHourlyWeather() = HourlyWeather(
     temperatureUnit = TemperatureUnit.UNKNOWN,
     hourly = listOf()
 )
 
-fun emptyDailyWeather() = DailyWeather(
+fun defaultDailyWeather() = DailyWeather(
     temperatureUnit = TemperatureUnit.UNKNOWN,
     daily = listOf()
 )
