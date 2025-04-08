@@ -1,8 +1,5 @@
 package com.gzaber.weatherapp.ui.weather
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -14,7 +11,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import com.gzaber.weatherapp.R
 import com.gzaber.weatherapp.ui.weather.composable.WeatherContent
 import org.koin.androidx.compose.koinViewModel
 
@@ -39,7 +38,7 @@ fun WeatherScreen(
                 navigationIcon = {
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(
-                            imageVector = Icons.Default.Settings,
+                            painter = painterResource(R.drawable.ic_settings),
                             contentDescription = "Settings screen"
                         )
                     }
@@ -47,7 +46,7 @@ fun WeatherScreen(
                 actions = {
                     IconButton(onClick = onNavigateToSearch) {
                         Icon(
-                            imageVector = Icons.Default.Search,
+                            painter = painterResource(R.drawable.ic_search),
                             contentDescription = "Search screen"
                         )
                     }
