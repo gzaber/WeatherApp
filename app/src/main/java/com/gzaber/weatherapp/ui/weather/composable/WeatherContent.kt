@@ -10,11 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,12 +17,17 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.gzaber.weatherapp.R
 import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeather
 import com.gzaber.weatherapp.data.repository.weather.model.DailyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
 import com.gzaber.weatherapp.ui.weather.WeatherForecastType
+import com.gzaber.weatherapp.ui.weather.util.toDescription
+import com.gzaber.weatherapp.ui.weather.util.toDrawable
+import com.gzaber.weatherapp.ui.weather.util.toSymbol
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -46,20 +46,24 @@ fun WeatherContent(
             .padding(contentPadding),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = currentWeather.date.format(DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy")),
+            style = MaterialTheme.typography.titleLarge
+        )
         Icon(
-            imageVector = Icons.Default.Home,
+            painter = painterResource(currentWeather.condition.toDrawable()),
             contentDescription = "Clear search text",
             modifier = Modifier
-                .size(96.dp)
+                .size(120.dp)
                 .weight(1f)
         )
         Text(
-            text = "${currentWeather.temperature.value}${currentWeather.temperature.unit}",
+            text = "${currentWeather.temperature.value} ${currentWeather.temperature.unit.toSymbol()}",
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.displayLarge
         )
         Text(
-            text = "${currentWeather.weatherCode} Cloudy",
+            text = currentWeather.condition.toDescription(),
             style = MaterialTheme.typography.displayMedium
         )
         Row(
@@ -69,25 +73,25 @@ fun WeatherContent(
             horizontalArrangement = Arrangement.SpaceAround
         ) {
             WeatherParameter(
-                icon = Icons.Default.LocationOn,
+                icon = R.drawable.ic_wind,
                 iconContentDescription = "Wind speed",
                 value = "${currentWeather.windSpeed.value}",
-                unit = currentWeather.windSpeed.unit,
+                unit = currentWeather.windSpeed.unit.toSymbol(),
                 description = "Wind"
             )
             WeatherParameter(
-                icon = Icons.Default.AccountBox,
+                icon = R.drawable.ic_humidity,
                 iconContentDescription = "Humidity",
                 value = "${currentWeather.humidity.value}",
-                unit = currentWeather.humidity.unit,
+                unit = currentWeather.humidity.unit.toSymbol(),
                 description = "Humidity"
             )
             WeatherParameter(
-                icon = Icons.Default.Build,
-                iconContentDescription = "Rain",
-                value = "${currentWeather.rain.value}",
-                unit = currentWeather.rain.unit,
-                description = "Rain"
+                icon = R.drawable.ic_precipitation,
+                iconContentDescription = "Precipitation",
+                value = "${currentWeather.precipitation.value}",
+                unit = currentWeather.precipitation.unit.toSymbol(),
+                description = "Precipitation"
             )
         }
         Row(
@@ -116,18 +120,18 @@ fun WeatherContent(
                 items(hourlyWeather.hourly) { weather ->
                     WeatherForecastCard(
                         time = weather.time.format(DateTimeFormatter.ofPattern("HH:mm")),
-                        icon = Icons.Default.LocationOn,
+                        icon = weather.condition.toDrawable(),
                         value = "${weather.temperature}",
-                        unit = hourlyWeather.temperatureUnit
+                        unit = hourlyWeather.temperatureUnit.toSymbol()
                     )
                 }
             } else {
                 items(dailyWeather.daily) { weather ->
                     WeatherForecastCard(
                         time = weather.date.format(DateTimeFormatter.ofPattern("EE")),
-                        icon = Icons.Default.LocationOn,
+                        icon = weather.condition.toDrawable(),
                         value = "${weather.maxTemperature}",
-                        unit = dailyWeather.maxTemperatureUnit
+                        unit = dailyWeather.temperatureUnit.toSymbol()
                     )
                 }
             }

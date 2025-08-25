@@ -1,9 +1,12 @@
 package com.gzaber.weatherapp.data.repository.weather.model
 
+import java.time.LocalDateTime
+
 data class CurrentWeather(
-    val weatherCode: Int,
-    val temperature: CurrentWeatherParameter<Double>,
-    val humidity: CurrentWeatherParameter<Int>,
-    val rain: CurrentWeatherParameter<Double>,
-    val windSpeed: CurrentWeatherParameter<Double>
+    val date: LocalDateTime,
+    val condition: WeatherCondition,
+    val temperature: CurrentWeatherParameter<TemperatureUnit, Double>,
+    val humidity: CurrentWeatherParameter<HumidityUnit, Int>,
+    val windSpeed: CurrentWeatherParameter<WindSpeedUnit, Double>,
+    val precipitation: CurrentWeatherParameter<PrecipitationUnit, Double>
 )

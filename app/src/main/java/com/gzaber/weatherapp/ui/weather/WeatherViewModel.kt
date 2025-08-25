@@ -3,6 +3,7 @@ package com.gzaber.weatherapp.ui.weather
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gzaber.weatherapp.data.repository.userpreferences.UserPreferencesRepository
+import com.gzaber.weatherapp.data.repository.userpreferences.model.isNotEmpty
 import com.gzaber.weatherapp.data.repository.weather.WeatherRepository
 import com.gzaber.weatherapp.ui.util.toWeatherUnits
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +25,8 @@ class WeatherViewModel(
             userPreferencesRepository.observeLocation()
                 .catch { _uiState.update { it.copy(isError = true) } }
                 .collect { locationPreferences ->
-                    _uiState.update { it.copy(locationPreferences = locationPreferences) }
+                    if (locationPreferences.isNotEmpty())
+                        _uiState.update { it.copy(locationPreferences = locationPreferences) }
                     getWeather()
                 }
         }
@@ -58,9 +60,9 @@ class WeatherViewModel(
                 _uiState.update {
                     it.copy(
                         currentWeather = weatherRepository.getCurrentWeather(
-                            it.locationPreferences.latitude,
-                            it.locationPreferences.longitude,
-                            it.weatherUnitsPreferences.toWeatherUnits()
+                            latitude = it.locationPreferences.latitude,
+                            longitude = it.locationPreferences.longitude,
+                            weatherUnits = it.weatherUnitsPreferences.toWeatherUnits()
                         ),
                         isLoadingCurrentWeather = false
                     )
@@ -78,9 +80,9 @@ class WeatherViewModel(
                 _uiState.update {
                     it.copy(
                         dailyWeather = weatherRepository.getDailyWeather(
-                            it.locationPreferences.latitude,
-                            it.locationPreferences.longitude,
-                            it.weatherUnitsPreferences.toWeatherUnits()
+                            latitude = it.locationPreferences.latitude,
+                            longitude = it.locationPreferences.longitude,
+                            temperatureUnit = it.weatherUnitsPreferences.toWeatherUnits().temperatureUnit
                         ),
                         isLoadingDailyWeather = false
                     )
@@ -98,9 +100,9 @@ class WeatherViewModel(
                 _uiState.update {
                     it.copy(
                         hourlyWeather = weatherRepository.getHourlyWeather(
-                            it.locationPreferences.latitude,
-                            it.locationPreferences.longitude,
-                            it.weatherUnitsPreferences.toWeatherUnits()
+                            latitude = it.locationPreferences.latitude,
+                            longitude = it.locationPreferences.longitude,
+                            temperatureUnit = it.weatherUnitsPreferences.toWeatherUnits().temperatureUnit
                         ),
                         isLoadingHourlyWeather = false
                     )

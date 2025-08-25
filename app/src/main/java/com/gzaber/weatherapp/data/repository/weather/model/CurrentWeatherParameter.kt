@@ -1,6 +1,6 @@
 package com.gzaber.weatherapp.data.repository.weather.model
 
-data class CurrentWeatherParameter<T>(
-    val value: T,
-    val unit: String
+data class CurrentWeatherParameter<U, V>(
+    val unit: U,
+    val value: V
 )

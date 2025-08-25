@@ -15,14 +15,14 @@ class DefaultUserPreferencesRepository(
         latitude: Double,
         longitude: Double,
         name: String,
-        description: String
+        country: String
     ) {
         settingsStore.updateData { currentPreferences ->
             currentPreferences.toBuilder()
                 .setLatitude(latitude)
                 .setLongitude(longitude)
                 .setName(name)
-                .setDescription(description)
+                .setCountry(country)
                 .build()
         }
     }
@@ -56,7 +56,7 @@ class DefaultUserPreferencesRepository(
             latitude = it.latitude,
             longitude = it.longitude,
             name = it.name,
-            description = it.description
+            country = it.country
         )
     }
 

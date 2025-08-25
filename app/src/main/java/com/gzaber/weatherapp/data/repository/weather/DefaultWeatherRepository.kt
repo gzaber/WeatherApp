@@ -3,8 +3,10 @@ package com.gzaber.weatherapp.data.repository.weather
 import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeather
 import com.gzaber.weatherapp.data.repository.weather.model.DailyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
+import com.gzaber.weatherapp.data.repository.weather.model.TemperatureUnit
 import com.gzaber.weatherapp.data.repository.weather.model.WeatherUnits
-import com.gzaber.weatherapp.data.repository.weather.model.toExternal
+import com.gzaber.weatherapp.data.repository.weather.util.toExternal
+import com.gzaber.weatherapp.data.repository.weather.util.toQueryValue
 import com.gzaber.weatherapp.data.source.network.weather.WeatherApi
 
 class DefaultWeatherRepository(
@@ -18,34 +20,30 @@ class DefaultWeatherRepository(
         networkDataSource.getCurrentWeather(
             latitude,
             longitude,
-            weatherUnits.temperatureUnit.value,
-            weatherUnits.windSpeedUnit.value,
-            weatherUnits.precipitationUnit.value
+            weatherUnits.temperatureUnit.toQueryValue(),
+            weatherUnits.windSpeedUnit.toQueryValue(),
+            weatherUnits.precipitationUnit.toQueryValue()
         ).toExternal()
 
     override suspend fun getHourlyWeather(
         latitude: Double,
         longitude: Double,
-        weatherUnits: WeatherUnits
+        temperatureUnit: TemperatureUnit
     ): HourlyWeather =
         networkDataSource.getHourlyWeather(
             latitude,
             longitude,
-            weatherUnits.temperatureUnit.value,
-            weatherUnits.windSpeedUnit.value,
-            weatherUnits.precipitationUnit.value
+            temperatureUnit.toQueryValue()
         ).toExternal()
 
     override suspend fun getDailyWeather(
         latitude: Double,
         longitude: Double,
-        weatherUnits: WeatherUnits
+        temperatureUnit: TemperatureUnit
     ): DailyWeather =
         networkDataSource.getDailyWeather(
             latitude,
             longitude,
-            weatherUnits.temperatureUnit.value,
-            weatherUnits.windSpeedUnit.value,
-            weatherUnits.precipitationUnit.value
+            temperatureUnit.toQueryValue()
         ).toExternal()
 }

@@ -10,5 +10,5 @@ data class NetworkDailyWeatherValues(
     @SerializedName("temperature_2m_min")
     val minTemperatures: List<Double>,
     @SerializedName("temperature_2m_max")
-    val maxTemperature: List<Double>
+    val maxTemperatures: List<Double>
 )

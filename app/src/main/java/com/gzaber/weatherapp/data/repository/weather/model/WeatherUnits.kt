@@ -1,20 +1,19 @@
 package com.gzaber.weatherapp.data.repository.weather.model
 
-enum class TemperatureUnit(val value: String) {
-    CELSIUS("celsius"),
-    FAHRENHEIT("fahrenheit")
+enum class TemperatureUnit {
+    CELSIUS, FAHRENHEIT, UNKNOWN
 }
 
-enum class WindSpeedUnit(val value: String) {
-    KILOMETERS_PER_HOUR("kmh"),
-    METERS_PER_SECOND("ms"),
-    MILES_PER_HOUR("mph"),
-    KNOTS("kn")
+enum class WindSpeedUnit {
+    KILOMETERS_PER_HOUR, METERS_PER_SECOND, MILES_PER_HOUR, KNOTS, UNKNOWN
 }
 
-enum class PrecipitationUnit(val value: String) {
-    MILLIMETER("mm"),
-    INCH("inch")
+enum class PrecipitationUnit {
+    MILLIMETER, INCH, UNKNOWN
+}
+
+enum class HumidityUnit {
+    PERCENT, UNKNOWN
 }
 
 data class WeatherUnits(

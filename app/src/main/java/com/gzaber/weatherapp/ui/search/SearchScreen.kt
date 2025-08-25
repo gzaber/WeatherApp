@@ -1,7 +1,5 @@
 package com.gzaber.weatherapp.ui.search
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -13,7 +11,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import com.gzaber.weatherapp.R
 import com.gzaber.weatherapp.ui.search.composable.SearchContent
 import org.koin.androidx.compose.koinViewModel
 
@@ -37,7 +37,7 @@ fun SearchScreen(
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                            painter = painterResource(R.drawable.ic_arrow_back),
                             contentDescription = "Navigate back"
                         )
                     }
