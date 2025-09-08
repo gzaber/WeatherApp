@@ -1,5 +1,6 @@
 package com.gzaber.weatherapp.ui.weather
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -11,9 +12,11 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import com.gzaber.weatherapp.R
+import com.gzaber.weatherapp.ui.weather.composable.LoadingIndicator
 import com.gzaber.weatherapp.ui.weather.composable.WeatherContent
 import org.koin.androidx.compose.koinViewModel
 
@@ -30,10 +33,15 @@ fun WeatherScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(
-                        text = "${uiState.locationPreferences.name}, ${uiState.locationPreferences.country}",
-                        fontWeight = FontWeight.Bold
-                    )
+                    if (uiState.isLoadingCurrentWeather.not() ||
+                        uiState.isLoadingHourlyWeather.not() ||
+                        uiState.isLoadingDailyWeather.not()
+                    ) {
+                        Text(
+                            text = "${uiState.locationPreferences.name}, ${uiState.locationPreferences.country}",
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 },
                 navigationIcon = {
                     IconButton(onClick = onNavigateToSettings) {
@@ -55,11 +63,18 @@ fun WeatherScreen(
             )
         }
     ) { contentPadding ->
-        WeatherContent(
-            contentPadding = contentPadding,
-            currentWeather = uiState.currentWeather,
-            hourlyWeather = uiState.hourlyWeather,
-            dailyWeather = uiState.dailyWeather
-        )
+        if (uiState.isLoadingCurrentWeather || uiState.isLoadingHourlyWeather || uiState.isLoadingDailyWeather) {
+            LoadingIndicator(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = contentPadding
+            )
+        } else {
+            WeatherContent(
+                contentPadding = contentPadding,
+                currentWeather = uiState.currentWeather,
+                hourlyWeather = uiState.hourlyWeather,
+                dailyWeather = uiState.dailyWeather
+            )
+        }
     }
 }

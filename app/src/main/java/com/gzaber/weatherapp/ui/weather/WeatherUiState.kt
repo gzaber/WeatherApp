@@ -17,8 +17,8 @@ data class WeatherUiState(
     val currentWeather: CurrentWeather = defaultCurrentWeather(),
     val hourlyWeather: HourlyWeather = defaultHourlyWeather(),
     val dailyWeather: DailyWeather = defaultDailyWeather(),
-    val isLoadingCurrentWeather: Boolean = false,
-    val isLoadingHourlyWeather: Boolean = false,
-    val isLoadingDailyWeather: Boolean = false,
+    val isLoadingCurrentWeather: Boolean = true,
+    val isLoadingHourlyWeather: Boolean = true,
+    val isLoadingDailyWeather: Boolean = true,
     val isError: Boolean = false
 )

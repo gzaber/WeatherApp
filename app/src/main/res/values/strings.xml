@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+    <string name="loading_indicator_content_description">Loading indicator</string>
 </resources>
