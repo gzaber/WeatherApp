@@ -59,9 +59,7 @@ fun WeatherScreen(
             contentPadding = contentPadding,
             currentWeather = uiState.currentWeather,
             hourlyWeather = uiState.hourlyWeather,
-            dailyWeather = uiState.dailyWeather,
-            weatherForecastType = uiState.weatherForecastType,
-            onWeatherForecastTypeChanged = viewModel::onWeatherForecastTypeChanged
+            dailyWeather = uiState.dailyWeather
         )
     }
 }

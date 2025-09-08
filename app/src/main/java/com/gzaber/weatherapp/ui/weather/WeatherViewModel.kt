@@ -41,12 +41,6 @@ class WeatherViewModel(
         }
     }
 
-    fun onWeatherForecastTypeChanged(weatherForecastType: WeatherForecastType) {
-        _uiState.update {
-            it.copy(weatherForecastType = weatherForecastType)
-        }
-    }
-
     private fun getWeather() {
         getCurrentWeather()
         getHourlyWeather()

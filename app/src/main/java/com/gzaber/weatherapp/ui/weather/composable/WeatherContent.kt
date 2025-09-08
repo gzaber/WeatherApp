@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +23,6 @@ import com.gzaber.weatherapp.R
 import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeather
 import com.gzaber.weatherapp.data.repository.weather.model.DailyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
-import com.gzaber.weatherapp.ui.weather.WeatherForecastType
 import com.gzaber.weatherapp.ui.weather.util.toDescription
 import com.gzaber.weatherapp.ui.weather.util.toDrawable
 import com.gzaber.weatherapp.ui.weather.util.toSymbol
@@ -36,8 +34,6 @@ fun WeatherContent(
     currentWeather: CurrentWeather,
     hourlyWeather: HourlyWeather,
     dailyWeather: DailyWeather,
-    weatherForecastType: WeatherForecastType,
-    onWeatherForecastTypeChanged: (WeatherForecastType) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -94,46 +90,24 @@ fun WeatherContent(
                 description = "Precipitation"
             )
         }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            TextButton(
-                onClick = { onWeatherForecastTypeChanged(WeatherForecastType.HOURLY) }
-            ) {
-                Text(
-                    text = "Today",
-                    fontWeight = if (weatherForecastType == WeatherForecastType.HOURLY) FontWeight.Bold else FontWeight.Normal
-                )
-            }
-            TextButton(
-                onClick = { onWeatherForecastTypeChanged(WeatherForecastType.DAILY) }
-            ) {
-                Text(
-                    text = "7 days",
-                    fontWeight = if (weatherForecastType == WeatherForecastType.DAILY) FontWeight.Bold else FontWeight.Normal
+        LazyRow(modifier = Modifier.padding(bottom = 16.dp)) {
+            items(hourlyWeather.hourly) { weather ->
+                WeatherForecastCard(
+                    time = weather.time.format(DateTimeFormatter.ofPattern("HH:mm")),
+                    icon = weather.condition.toDrawable(),
+                    value = "${weather.temperature}",
+                    unit = hourlyWeather.temperatureUnit.toSymbol()
                 )
             }
         }
         LazyRow {
-            if (weatherForecastType == WeatherForecastType.HOURLY) {
-                items(hourlyWeather.hourly) { weather ->
-                    WeatherForecastCard(
-                        time = weather.time.format(DateTimeFormatter.ofPattern("HH:mm")),
-                        icon = weather.condition.toDrawable(),
-                        value = "${weather.temperature}",
-                        unit = hourlyWeather.temperatureUnit.toSymbol()
-                    )
-                }
-            } else {
-                items(dailyWeather.daily) { weather ->
-                    WeatherForecastCard(
-                        time = weather.date.format(DateTimeFormatter.ofPattern("EE")),
-                        icon = weather.condition.toDrawable(),
-                        value = "${weather.maxTemperature}",
-                        unit = dailyWeather.temperatureUnit.toSymbol()
-                    )
-                }
+            items(dailyWeather.daily) { weather ->
+                WeatherForecastCard(
+                    time = weather.date.format(DateTimeFormatter.ofPattern("EE")),
+                    icon = weather.condition.toDrawable(),
+                    value = "${weather.maxTemperature}",
+                    unit = dailyWeather.temperatureUnit.toSymbol()
+                )
             }
         }
     }

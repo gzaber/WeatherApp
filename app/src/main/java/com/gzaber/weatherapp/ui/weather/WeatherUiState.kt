@@ -11,17 +11,12 @@ import com.gzaber.weatherapp.ui.util.defaultHourlyWeather
 import com.gzaber.weatherapp.ui.util.defaultLocationPreferences
 import com.gzaber.weatherapp.ui.util.defaultWeatherUnitsPreferences
 
-enum class WeatherForecastType {
-    DAILY, HOURLY
-}
-
 data class WeatherUiState(
     val locationPreferences: LocationPreferences = defaultLocationPreferences(),
     val weatherUnitsPreferences: WeatherUnitsPreferences = defaultWeatherUnitsPreferences(),
     val currentWeather: CurrentWeather = defaultCurrentWeather(),
     val hourlyWeather: HourlyWeather = defaultHourlyWeather(),
     val dailyWeather: DailyWeather = defaultDailyWeather(),
-    val weatherForecastType: WeatherForecastType = WeatherForecastType.HOURLY,
     val isLoadingCurrentWeather: Boolean = false,
     val isLoadingHourlyWeather: Boolean = false,
     val isLoadingDailyWeather: Boolean = false,
