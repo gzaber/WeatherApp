@@ -24,7 +24,7 @@ interface WeatherApi {
         @Query("longitude") longitude: Double,
         @Query("temperature_unit") temperatureUnit: String,
         @Query("hourly") hourly: String = "weather_code,temperature_2m",
-        @Query("forecast_days") forecastDays: Int = 1,
+        @Query("forecast_hours") forecastHours: Int = 24,
         @Query("timezone") timezone: String = "auto",
     ): NetworkHourlyWeather
 
@@ -34,6 +34,7 @@ interface WeatherApi {
         @Query("longitude") longitude: Double,
         @Query("temperature_unit") temperatureUnit: String,
         @Query("daily") daily: String = "weather_code,temperature_2m_max,temperature_2m_min",
+        @Query("forecast_days") forecastDays: Int = 10,
         @Query("timezone") timezone: String = "auto",
     ): NetworkDailyWeather
 
