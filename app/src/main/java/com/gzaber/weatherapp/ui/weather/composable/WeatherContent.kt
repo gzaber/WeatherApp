@@ -54,7 +54,7 @@ fun WeatherContent(
                 .weight(1f)
         )
         Text(
-            text = "${currentWeather.temperature.value} ${currentWeather.temperature.unit.toSymbol()}",
+            text = "${currentWeather.temperature.value.toInt()}${currentWeather.temperature.unit.toSymbol()}",
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.displayLarge
         )
@@ -93,20 +93,19 @@ fun WeatherContent(
         LazyRow(modifier = Modifier.padding(bottom = 16.dp)) {
             items(hourlyWeather.hourly) { weather ->
                 WeatherForecastCard(
-                    time = weather.time.format(DateTimeFormatter.ofPattern("HH:mm")),
+                    topText = weather.time.format(DateTimeFormatter.ofPattern("HH:mm")),
                     icon = weather.condition.toDrawable(),
-                    value = "${weather.temperature}",
-                    unit = hourlyWeather.temperatureUnit.toSymbol()
+                    bottomText = "${weather.temperature.toInt()}${hourlyWeather.temperatureUnit.toSymbol()}"
                 )
             }
         }
         LazyRow {
             items(dailyWeather.daily) { weather ->
                 WeatherForecastCard(
-                    time = weather.date.format(DateTimeFormatter.ofPattern("EE")),
+                    topText = weather.date.format(DateTimeFormatter.ofPattern("EE")),
                     icon = weather.condition.toDrawable(),
-                    value = "${weather.maxTemperature}",
-                    unit = dailyWeather.temperatureUnit.toSymbol()
+                    bottomText = "${weather.maxTemperature.toInt()}${dailyWeather.temperatureUnit.toSymbol()}\n" +
+                            "${weather.minTemperature.toInt()}${dailyWeather.temperatureUnit.toSymbol()}"
                 )
             }
         }

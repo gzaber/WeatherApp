@@ -15,9 +15,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun WeatherForecastCard(
     @DrawableRes icon: Int,
-    time: String,
-    value: String,
-    unit: String,
+    topText: String,
+    bottomText: String,
     modifier: Modifier = Modifier
 ) {
     OutlinedCard(modifier = modifier.padding(horizontal = 4.dp)) {
@@ -25,12 +24,12 @@ fun WeatherForecastCard(
             modifier = Modifier.padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = time)
+            Text(text = topText)
             Icon(
                 painter = painterResource(icon),
                 contentDescription = "",
             )
-            Text(text = "$value $unit")
+            Text(text = bottomText)
         }
     }
 }
