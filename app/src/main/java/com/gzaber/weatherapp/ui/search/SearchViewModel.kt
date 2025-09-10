@@ -74,7 +74,7 @@ class SearchViewModel(
                 .collect { locations ->
                     _uiState.update {
                         it.copy(
-                            locationHistory = locations,
+                            locationHistory = locations.reversed(),
                             isLoadingLocationHistory = false
                         )
                     }

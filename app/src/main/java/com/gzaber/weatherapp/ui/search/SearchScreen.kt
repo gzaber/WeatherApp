@@ -53,7 +53,10 @@ fun SearchScreen(
             contentPadding = contentPadding,
             onSearchTextChanged = viewModel::onSearchTextChanged,
             onSearchTextCleared = viewModel::onSearchTextCleared,
-            onLocationClick = viewModel::selectLocation,
+            onLocationClick = { location ->
+                viewModel.selectLocation(location)
+                onNavigateBack()
+            },
             onLocationSwipe = viewModel::removeFromLocationHistory
         )
     }
