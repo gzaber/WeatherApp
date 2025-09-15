@@ -1,20 +1,18 @@
 package com.gzaber.weatherapp.ui.weather.composable
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 
 @Composable
 fun WeatherForecastCard(
-    @DrawableRes icon: Int,
+    imageLink: String,
     topText: String,
     bottomText: String,
     modifier: Modifier = Modifier
@@ -25,9 +23,10 @@ fun WeatherForecastCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = topText)
-            Icon(
-                painter = painterResource(icon),
-                contentDescription = "",
+            AsyncImage(
+                model = imageLink,
+                contentDescription = "Weather condition image",
+                modifier = Modifier
             )
             Text(text = bottomText)
         }

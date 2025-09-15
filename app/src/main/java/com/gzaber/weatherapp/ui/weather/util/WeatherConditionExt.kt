@@ -1,6 +1,5 @@
 package com.gzaber.weatherapp.ui.weather.util
 
-import com.gzaber.weatherapp.R
 import com.gzaber.weatherapp.data.repository.weather.model.WeatherCondition
 
 fun WeatherCondition.toDescription() = when (this) {
@@ -35,39 +34,41 @@ fun WeatherCondition.toDescription() = when (this) {
     WeatherCondition.UNKNOWN -> ""
 }
 
-fun WeatherCondition.toDrawable() = when (this) {
-    WeatherCondition.CLEAR_SKY,
-    WeatherCondition.MAINLY_CLEAR -> R.drawable.ic_weather_clear_sky
-
-    WeatherCondition.PARTLY_CLOUDY -> R.drawable.ic_weather_partly_cloudy
-    WeatherCondition.OVERCAST -> R.drawable.ic_weather_cloudy
+fun WeatherCondition.toImageLink() = when (this) {
+    WeatherCondition.CLEAR_SKY -> "https://maps.gstatic.com/weather/v1/sunny.png"
+    WeatherCondition.MAINLY_CLEAR -> "https://maps.gstatic.com/weather/v1/mostly_sunny.png"
+    WeatherCondition.PARTLY_CLOUDY -> "https://maps.gstatic.com/weather/v1/partly_cloudy.png"
+    WeatherCondition.OVERCAST,
     WeatherCondition.FOG,
-    WeatherCondition.FOG_DEPOSITING_RIME -> R.drawable.ic_weather_foggy
+    WeatherCondition.FOG_DEPOSITING_RIME -> "https://maps.gstatic.com/weather/v1/cloudy.png"
 
     WeatherCondition.DRIZZLE_LIGHT,
-    WeatherCondition.DRIZZLE_MODERATE,
-    WeatherCondition.DRIZZLE_DENSE,
     WeatherCondition.FREEZING_DRIZZLE_LIGHT,
-    WeatherCondition.FREEZING_DRIZZLE_DENSE,
-    WeatherCondition.RAIN_SLIGHT,
-    WeatherCondition.RAIN_MODERATE,
-    WeatherCondition.RAIN_HEAVY,
     WeatherCondition.FREEZING_RAIN_LIGHT,
-    WeatherCondition.FREEZING_RAIN_HEAVY,
-    WeatherCondition.RAIN_SHOWERS_SLIGHT,
-    WeatherCondition.RAIN_SHOWERS_MODERATE,
-    WeatherCondition.RAIN_SHOWERS_VIOLENT -> R.drawable.ic_weather_rainy
+    WeatherCondition.RAIN_SLIGHT,
+    WeatherCondition.RAIN_SHOWERS_SLIGHT -> "https://maps.gstatic.com/weather/v1/drizzle.png"
 
+    WeatherCondition.DRIZZLE_MODERATE,
+    WeatherCondition.FREEZING_DRIZZLE_DENSE,
+    WeatherCondition.RAIN_MODERATE,
+    WeatherCondition.RAIN_SHOWERS_MODERATE -> "https://maps.gstatic.com/weather/v1/scattered_showers.png"
+
+    WeatherCondition.DRIZZLE_DENSE,
+    WeatherCondition.FREEZING_RAIN_HEAVY,
+    WeatherCondition.RAIN_HEAVY,
+    WeatherCondition.RAIN_SHOWERS_VIOLENT -> "https://maps.gstatic.com/weather/v1/showers.png"
+
+    WeatherCondition.SNOW_FALL_MODERATE -> "https://maps.gstatic.com/weather/v1/snow_showers.png"
     WeatherCondition.SNOW_FALL_SLIGHT,
-    WeatherCondition.SNOW_FALL_MODERATE,
+    WeatherCondition.SNOW_GRAINS -> "https://maps.gstatic.com/weather/v1/flurries.png"
+
+    WeatherCondition.SNOW_SHOWERS_SLIGHT -> "https://maps.gstatic.com/weather/v1/scattered_snow.png"
     WeatherCondition.SNOW_FALL_HEAVY,
-    WeatherCondition.SNOW_GRAINS,
-    WeatherCondition.SNOW_SHOWERS_SLIGHT,
-    WeatherCondition.SNOW_SHOWERS_HEAVY -> R.drawable.ic_weather_snowy
+    WeatherCondition.SNOW_SHOWERS_HEAVY -> "https://maps.gstatic.com/weather/v1/heavy_snow.png"
 
     WeatherCondition.THUNDERSTORM,
     WeatherCondition.THUNDERSTORM_WITH_HAIL_SLIGHT,
-    WeatherCondition.THUNDERSTORM_WITH_HAIL_HEAVY -> R.drawable.ic_weather_thunderstorm
+    WeatherCondition.THUNDERSTORM_WITH_HAIL_HEAVY -> "https://maps.gstatic.com/weather/v1/strong_tstorms.png"
 
-    else -> R.drawable.ic_weather_unknown
+    else -> "https://maps.gstatic.com/weather/v1/windy_breezy.png"
 }

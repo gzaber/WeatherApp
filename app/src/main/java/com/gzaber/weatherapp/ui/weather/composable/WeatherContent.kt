@@ -10,21 +10,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.gzaber.weatherapp.R
 import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeather
 import com.gzaber.weatherapp.data.repository.weather.model.DailyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
 import com.gzaber.weatherapp.ui.weather.util.toDescription
-import com.gzaber.weatherapp.ui.weather.util.toDrawable
+import com.gzaber.weatherapp.ui.weather.util.toImageLink
 import com.gzaber.weatherapp.ui.weather.util.toSymbol
 import java.time.format.DateTimeFormatter
 
@@ -46,9 +45,9 @@ fun WeatherContent(
             text = currentWeather.date.format(DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy")),
             style = MaterialTheme.typography.titleLarge
         )
-        Icon(
-            painter = painterResource(currentWeather.condition.toDrawable()),
-            contentDescription = "Clear search text",
+        AsyncImage(
+            model = currentWeather.condition.toImageLink(),
+            contentDescription = "Weather condition image",
             modifier = Modifier
                 .size(120.dp)
                 .weight(1f)
@@ -94,7 +93,7 @@ fun WeatherContent(
             items(hourlyWeather.hourly) { weather ->
                 WeatherForecastCard(
                     topText = weather.time.format(DateTimeFormatter.ofPattern("HH:mm")),
-                    icon = weather.condition.toDrawable(),
+                    imageLink = weather.condition.toImageLink(),
                     bottomText = "${weather.temperature.toInt()}${hourlyWeather.temperatureUnit.toSymbol()}"
                 )
             }
@@ -103,7 +102,7 @@ fun WeatherContent(
             items(dailyWeather.daily) { weather ->
                 WeatherForecastCard(
                     topText = weather.date.format(DateTimeFormatter.ofPattern("EE")),
-                    icon = weather.condition.toDrawable(),
+                    imageLink = weather.condition.toImageLink(),
                     bottomText = "${weather.maxTemperature.toInt()}${dailyWeather.temperatureUnit.toSymbol()}\n" +
                             "${weather.minTemperature.toInt()}${dailyWeather.temperatureUnit.toSymbol()}"
                 )
