@@ -10,9 +10,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -25,6 +27,7 @@ import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
 import com.gzaber.weatherapp.ui.weather.util.toDescription
 import com.gzaber.weatherapp.ui.weather.util.toImageLink
 import com.gzaber.weatherapp.ui.weather.util.toSymbol
+import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -89,23 +92,40 @@ fun WeatherContent(
                 description = "Precipitation"
             )
         }
-        LazyRow(modifier = Modifier.padding(bottom = 16.dp)) {
-            items(hourlyWeather.hourly) { weather ->
-                WeatherForecastCard(
-                    topText = weather.time.format(DateTimeFormatter.ofPattern("HH:mm")),
-                    imageLink = weather.condition.toImageLink(),
-                    bottomText = "${weather.temperature.toInt()}${hourlyWeather.temperatureUnit.toSymbol()}"
-                )
+        Column {
+            val hourlyListState = rememberLazyListState()
+            val dailyListState = rememberLazyListState()
+            val coroutineScope = rememberCoroutineScope()
+
+            LazyRow(
+                modifier = Modifier.padding(bottom = 16.dp),
+                state = hourlyListState
+            ) {
+                coroutineScope.launch {
+                    hourlyListState.animateScrollToItem(index = 0)
+                }
+
+                items(hourlyWeather.hourly) { weather ->
+                    WeatherForecastCard(
+                        topText = weather.time.format(DateTimeFormatter.ofPattern("HH:mm")),
+                        imageLink = weather.condition.toImageLink(),
+                        bottomText = "${weather.temperature.toInt()}${hourlyWeather.temperatureUnit.toSymbol()}"
+                    )
+                }
             }
-        }
-        LazyRow {
-            items(dailyWeather.daily) { weather ->
-                WeatherForecastCard(
-                    topText = weather.date.format(DateTimeFormatter.ofPattern("EE")),
-                    imageLink = weather.condition.toImageLink(),
-                    bottomText = "${weather.maxTemperature.toInt()}${dailyWeather.temperatureUnit.toSymbol()}\n" +
-                            "${weather.minTemperature.toInt()}${dailyWeather.temperatureUnit.toSymbol()}"
-                )
+            LazyRow(state = dailyListState) {
+                coroutineScope.launch {
+                    dailyListState.animateScrollToItem(index = 0)
+                }
+
+                items(dailyWeather.daily) { weather ->
+                    WeatherForecastCard(
+                        topText = weather.date.format(DateTimeFormatter.ofPattern("EE")),
+                        imageLink = weather.condition.toImageLink(),
+                        bottomText = "${weather.maxTemperature.toInt()}${dailyWeather.temperatureUnit.toSymbol()}\n" +
+                                "${weather.minTemperature.toInt()}${dailyWeather.temperatureUnit.toSymbol()}"
+                    )
+                }
             }
         }
     }
