@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import com.gzaber.weatherapp.R
 import com.gzaber.weatherapp.ui.util.composable.LoadingIndicator
 import com.gzaber.weatherapp.ui.weather.composable.WeatherContent
@@ -39,7 +40,9 @@ fun WeatherScreen(
                     ) {
                         Text(
                             text = "${uiState.locationPreferences.name}, ${uiState.locationPreferences.country}",
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
                 },
