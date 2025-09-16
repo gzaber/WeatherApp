@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import com.gzaber.weatherapp.R
-import com.gzaber.weatherapp.ui.weather.composable.LoadingIndicator
+import com.gzaber.weatherapp.ui.util.composable.LoadingIndicator
 import com.gzaber.weatherapp.ui.weather.composable.WeatherContent
 import org.koin.androidx.compose.koinViewModel
 

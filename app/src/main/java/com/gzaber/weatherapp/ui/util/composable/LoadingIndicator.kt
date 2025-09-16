@@ -1,4 +1,4 @@
-package com.gzaber.weatherapp.ui.weather.composable
+package com.gzaber.weatherapp.ui.util.composable
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
