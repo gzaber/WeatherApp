@@ -2,7 +2,7 @@ package com.gzaber.weatherapp.ui.weather.util
 
 import com.gzaber.weatherapp.data.repository.weather.model.WeatherCondition
 
-fun WeatherCondition.toDescription() = when (this) {
+fun WeatherCondition.toDescription(): String = when (this) {
     WeatherCondition.CLEAR_SKY -> "Clear sky"
     WeatherCondition.MAINLY_CLEAR -> "Mainly clear"
     WeatherCondition.PARTLY_CLOUDY -> "Partly cloudy"
@@ -34,41 +34,30 @@ fun WeatherCondition.toDescription() = when (this) {
     WeatherCondition.UNKNOWN -> ""
 }
 
-fun WeatherCondition.toImageLink() = when (this) {
-    WeatherCondition.CLEAR_SKY -> "https://maps.gstatic.com/weather/v1/sunny.png"
-    WeatherCondition.MAINLY_CLEAR -> "https://maps.gstatic.com/weather/v1/mostly_sunny.png"
-    WeatherCondition.PARTLY_CLOUDY -> "https://maps.gstatic.com/weather/v1/partly_cloudy.png"
-    WeatherCondition.OVERCAST,
-    WeatherCondition.FOG,
-    WeatherCondition.FOG_DEPOSITING_RIME -> "https://maps.gstatic.com/weather/v1/cloudy.png"
+fun WeatherCondition.toImageUrl(isDaytime: Boolean = true, darkMode: Boolean = false): String {
+    val baseUrl = "https://maps.gstatic.com/weather/v1"
+    val timeSegment = if (isDaytime) "" else "_night"
+    val modeSuffix = if (darkMode) "_dark" else ""
 
-    WeatherCondition.DRIZZLE_LIGHT,
-    WeatherCondition.FREEZING_DRIZZLE_LIGHT,
-    WeatherCondition.FREEZING_RAIN_LIGHT,
-    WeatherCondition.RAIN_SLIGHT,
-    WeatherCondition.RAIN_SHOWERS_SLIGHT -> "https://maps.gstatic.com/weather/v1/drizzle.png"
+    val iconPath = when (this) {
+        WeatherCondition.CLEAR_SKY -> "clear"
+        WeatherCondition.MAINLY_CLEAR -> "mostly_clear"
+        WeatherCondition.PARTLY_CLOUDY -> "partly_cloudy"
+        WeatherCondition.OVERCAST -> "cloudy"
+        WeatherCondition.FOG, WeatherCondition.FOG_DEPOSITING_RIME -> "fog"
+        WeatherCondition.DRIZZLE_LIGHT, WeatherCondition.DRIZZLE_MODERATE, WeatherCondition.DRIZZLE_DENSE -> "light_rain"
+        WeatherCondition.FREEZING_DRIZZLE_LIGHT, WeatherCondition.FREEZING_DRIZZLE_DENSE, WeatherCondition.FREEZING_RAIN_LIGHT,
+        WeatherCondition.RAIN_SLIGHT, WeatherCondition.RAIN_MODERATE -> "rain"
 
-    WeatherCondition.DRIZZLE_MODERATE,
-    WeatherCondition.FREEZING_DRIZZLE_DENSE,
-    WeatherCondition.RAIN_MODERATE,
-    WeatherCondition.RAIN_SHOWERS_MODERATE -> "https://maps.gstatic.com/weather/v1/scattered_showers.png"
+        WeatherCondition.RAIN_HEAVY, WeatherCondition.FREEZING_RAIN_HEAVY -> "heavy_rain"
+        WeatherCondition.SNOW_FALL_SLIGHT, WeatherCondition.SNOW_FALL_MODERATE,
+        WeatherCondition.SNOW_FALL_HEAVY, WeatherCondition.SNOW_GRAINS -> "snow"
 
-    WeatherCondition.DRIZZLE_DENSE,
-    WeatherCondition.FREEZING_RAIN_HEAVY,
-    WeatherCondition.RAIN_HEAVY,
-    WeatherCondition.RAIN_SHOWERS_VIOLENT -> "https://maps.gstatic.com/weather/v1/showers.png"
+        WeatherCondition.SNOW_SHOWERS_SLIGHT, WeatherCondition.SNOW_SHOWERS_HEAVY -> "snow_showers"
+        WeatherCondition.RAIN_SHOWERS_SLIGHT, WeatherCondition.RAIN_SHOWERS_MODERATE, WeatherCondition.RAIN_SHOWERS_VIOLENT -> "rain_showers"
+        WeatherCondition.THUNDERSTORM, WeatherCondition.THUNDERSTORM_WITH_HAIL_SLIGHT, WeatherCondition.THUNDERSTORM_WITH_HAIL_HEAVY -> "thunderstorm"
+        WeatherCondition.UNKNOWN -> "unknown"
+    }
 
-    WeatherCondition.SNOW_FALL_MODERATE -> "https://maps.gstatic.com/weather/v1/snow_showers.png"
-    WeatherCondition.SNOW_FALL_SLIGHT,
-    WeatherCondition.SNOW_GRAINS -> "https://maps.gstatic.com/weather/v1/flurries.png"
-
-    WeatherCondition.SNOW_SHOWERS_SLIGHT -> "https://maps.gstatic.com/weather/v1/scattered_snow.png"
-    WeatherCondition.SNOW_FALL_HEAVY,
-    WeatherCondition.SNOW_SHOWERS_HEAVY -> "https://maps.gstatic.com/weather/v1/heavy_snow.png"
-
-    WeatherCondition.THUNDERSTORM,
-    WeatherCondition.THUNDERSTORM_WITH_HAIL_SLIGHT,
-    WeatherCondition.THUNDERSTORM_WITH_HAIL_HEAVY -> "https://maps.gstatic.com/weather/v1/strong_tstorms.png"
-
-    else -> "https://maps.gstatic.com/weather/v1/windy_breezy.png"
+    return "$baseUrl/$iconPath$timeSegment$modeSuffix.png"
 }

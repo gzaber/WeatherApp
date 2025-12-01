@@ -26,7 +26,7 @@ import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeather
 import com.gzaber.weatherapp.data.repository.weather.model.DailyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
 import com.gzaber.weatherapp.ui.weather.util.toDescription
-import com.gzaber.weatherapp.ui.weather.util.toImageLink
+import com.gzaber.weatherapp.ui.weather.util.toImageUrl
 import com.gzaber.weatherapp.ui.weather.util.toSymbol
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
@@ -50,7 +50,7 @@ fun WeatherContent(
             style = MaterialTheme.typography.titleLarge
         )
         AsyncImage(
-            model = currentWeather.condition.toImageLink(),
+            model = currentWeather.condition.toImageUrl(),
             error = painterResource(R.drawable.ic_broken_image),
             placeholder = painterResource(R.drawable.loading_image),
             contentDescription = "Weather condition image",
@@ -111,7 +111,7 @@ fun WeatherContent(
                 items(hourlyWeather.hourly) { weather ->
                     WeatherForecastCard(
                         topText = weather.time.format(DateTimeFormatter.ofPattern("HH:mm")),
-                        imageLink = weather.condition.toImageLink(),
+                        imageLink = weather.condition.toImageUrl(),
                         bottomText = "${weather.temperature.toInt()}${hourlyWeather.temperatureUnit.toSymbol()}"
                     )
                 }
@@ -124,7 +124,7 @@ fun WeatherContent(
                 items(dailyWeather.daily) { weather ->
                     WeatherForecastCard(
                         topText = weather.date.format(DateTimeFormatter.ofPattern("EE")),
-                        imageLink = weather.condition.toImageLink(),
+                        imageLink = weather.condition.toImageUrl(),
                         bottomText = "${weather.maxTemperature.toInt()}${dailyWeather.temperatureUnit.toSymbol()}\n" +
                                 "${weather.minTemperature.toInt()}${dailyWeather.temperatureUnit.toSymbol()}"
                     )

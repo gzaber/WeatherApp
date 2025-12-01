@@ -7,6 +7,7 @@ import com.gzaber.weatherapp.data.repository.weather.model.DailyWeatherParameter
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeatherParameters
 import com.gzaber.weatherapp.data.repository.weather.model.TemperatureUnit
+import com.gzaber.weatherapp.data.repository.weather.model.WeatherCondition
 import com.gzaber.weatherapp.data.source.network.weather.model.NetworkCurrentWeather
 import com.gzaber.weatherapp.data.source.network.weather.model.NetworkDailyWeather
 import com.gzaber.weatherapp.data.source.network.weather.model.NetworkHourlyWeather
@@ -15,7 +16,7 @@ import java.time.LocalDateTime
 
 fun NetworkCurrentWeather.toExternal() = CurrentWeather(
     date = LocalDateTime.parse(values.date),
-    condition = values.weatherCode.toWeatherCondition(),
+    condition = WeatherCondition.fromCode(values.weatherCode),
     temperature = CurrentWeatherParameter(
         unit = units.temperature.toTemperatureUnit(),
         value = values.temperature
@@ -39,7 +40,7 @@ fun NetworkHourlyWeather.toExternal() = HourlyWeather(
     hourly = List(values.time.size) { i ->
         HourlyWeatherParameters(
             time = LocalDateTime.parse(values.time[i]),
-            condition = values.weatherCodes[i].toWeatherCondition(),
+            condition = WeatherCondition.fromCode(values.weatherCodes[i]),
             temperature = values.temperatures[i]
         )
     }
@@ -51,7 +52,7 @@ fun NetworkDailyWeather.toExternal() = DailyWeather(
     daily = List(values.date.size) { i ->
         DailyWeatherParameters(
             date = LocalDate.parse(values.date[i]),
-            condition = values.weatherCodes[i].toWeatherCondition(),
+            condition = WeatherCondition.fromCode(values.weatherCodes[i]),
             minTemperature = values.minTemperatures[i],
             maxTemperature = values.maxTemperatures[i]
         )
