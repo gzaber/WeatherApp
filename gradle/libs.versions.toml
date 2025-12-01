@@ -15,6 +15,8 @@ koin = "4.1.1"
 navigation = "2.9.3"
 serialization = "2.2.10"
 serializationJson = "1.9.0"
+coilCompose = "3.3.0"
+coilNetworkOkHttp = "3.3.0"
 junit = "4.13.2"
 
 [libraries]
@@ -38,6 +40,8 @@ koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = 
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationJson" }
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilCompose" }
+coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coilNetworkOkHttp" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 
