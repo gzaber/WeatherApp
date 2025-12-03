@@ -1,5 +1,7 @@
 package com.gzaber.weatherapp.ui.weather.composable
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -10,12 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
-import com.gzaber.weatherapp.R
 
 @Composable
 fun WeatherForecastCard(
-    imageLink: String,
+    @DrawableRes iconRes: Int,
     topText: String,
     bottomText: String,
     modifier: Modifier = Modifier
@@ -26,12 +26,10 @@ fun WeatherForecastCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = topText)
-            AsyncImage(
-                model = imageLink,
-                error = painterResource(R.drawable.ic_broken_image),
-                placeholder = painterResource(R.drawable.loading_image),
+            Image(
+                painterResource(iconRes),
                 contentDescription = "Weather condition image",
-                modifier = Modifier.size(35.dp)
+                modifier = Modifier.size(48.dp)
             )
             Text(text = bottomText)
         }

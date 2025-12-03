@@ -1,6 +1,7 @@
 package com.gzaber.weatherapp.ui.weather.util
 
 import com.gzaber.weatherapp.data.repository.weather.model.WeatherCondition
+import com.gzaber.weatherapp.R
 
 fun WeatherCondition.toDescription(): String = when (this) {
     WeatherCondition.CLEAR_SKY -> "Clear sky"
@@ -34,30 +35,63 @@ fun WeatherCondition.toDescription(): String = when (this) {
     WeatherCondition.UNKNOWN -> ""
 }
 
-fun WeatherCondition.toImageUrl(isDaytime: Boolean = true, darkMode: Boolean = false): String {
-    val baseUrl = "https://maps.gstatic.com/weather/v1"
-    val timeSegment = if (isDaytime) "" else "_night"
-    val modeSuffix = if (darkMode) "_dark" else ""
+fun WeatherCondition.toIconRes(isDay: Boolean = true): Int {
+    return when (this) {
+        WeatherCondition.CLEAR_SKY,
+        WeatherCondition.MAINLY_CLEAR ->
+            if (isDay) R.drawable.ic_weather_clear_day else R.drawable.ic_weather_clear_night
 
-    val iconPath = when (this) {
-        WeatherCondition.CLEAR_SKY -> "clear"
-        WeatherCondition.MAINLY_CLEAR -> "mostly_clear"
-        WeatherCondition.PARTLY_CLOUDY -> "partly_cloudy"
-        WeatherCondition.OVERCAST -> "cloudy"
-        WeatherCondition.FOG, WeatherCondition.FOG_DEPOSITING_RIME -> "fog"
-        WeatherCondition.DRIZZLE_LIGHT, WeatherCondition.DRIZZLE_MODERATE, WeatherCondition.DRIZZLE_DENSE -> "light_rain"
-        WeatherCondition.FREEZING_DRIZZLE_LIGHT, WeatherCondition.FREEZING_DRIZZLE_DENSE, WeatherCondition.FREEZING_RAIN_LIGHT,
-        WeatherCondition.RAIN_SLIGHT, WeatherCondition.RAIN_MODERATE -> "rain"
+        WeatherCondition.PARTLY_CLOUDY ->
+            if (isDay) R.drawable.ic_weather_partly_cloudy_day else R.drawable.ic_weather_partly_cloudy_night
 
-        WeatherCondition.RAIN_HEAVY, WeatherCondition.FREEZING_RAIN_HEAVY -> "heavy_rain"
-        WeatherCondition.SNOW_FALL_SLIGHT, WeatherCondition.SNOW_FALL_MODERATE,
-        WeatherCondition.SNOW_FALL_HEAVY, WeatherCondition.SNOW_GRAINS -> "snow"
+        WeatherCondition.OVERCAST ->
+            R.drawable.ic_weather_cloudy
 
-        WeatherCondition.SNOW_SHOWERS_SLIGHT, WeatherCondition.SNOW_SHOWERS_HEAVY -> "snow_showers"
-        WeatherCondition.RAIN_SHOWERS_SLIGHT, WeatherCondition.RAIN_SHOWERS_MODERATE, WeatherCondition.RAIN_SHOWERS_VIOLENT -> "rain_showers"
-        WeatherCondition.THUNDERSTORM, WeatherCondition.THUNDERSTORM_WITH_HAIL_SLIGHT, WeatherCondition.THUNDERSTORM_WITH_HAIL_HEAVY -> "thunderstorm"
-        WeatherCondition.UNKNOWN -> "unknown"
+        WeatherCondition.FOG,
+        WeatherCondition.FOG_DEPOSITING_RIME ->
+            R.drawable.ic_weather_fog
+
+        WeatherCondition.DRIZZLE_LIGHT,
+        WeatherCondition.DRIZZLE_MODERATE,
+        WeatherCondition.DRIZZLE_DENSE,
+        WeatherCondition.FREEZING_DRIZZLE_LIGHT,
+        WeatherCondition.RAIN_SLIGHT,
+        WeatherCondition.FREEZING_RAIN_LIGHT,
+        WeatherCondition.RAIN_SHOWERS_SLIGHT ->
+            R.drawable.ic_weather_rain_light
+
+        WeatherCondition.FREEZING_DRIZZLE_DENSE,
+        WeatherCondition.RAIN_MODERATE,
+        WeatherCondition.RAIN_SHOWERS_MODERATE ->
+            R.drawable.ic_weather_rain_moderate
+
+        WeatherCondition.RAIN_HEAVY,
+        WeatherCondition.FREEZING_RAIN_HEAVY ->
+            R.drawable.ic_weather_rain_heavy
+
+        WeatherCondition.RAIN_SHOWERS_VIOLENT ->
+            R.drawable.ic_weather_rain_violent
+
+        WeatherCondition.SNOW_FALL_SLIGHT,
+        WeatherCondition.SNOW_SHOWERS_SLIGHT,
+        WeatherCondition.SNOW_GRAINS ->
+            R.drawable.ic_weather_snow_light
+
+        WeatherCondition.SNOW_FALL_MODERATE ->
+            R.drawable.ic_weather_snow_moderate
+
+        WeatherCondition.SNOW_FALL_HEAVY,
+        WeatherCondition.SNOW_SHOWERS_HEAVY ->
+            R.drawable.ic_weather_snow_heavy
+
+        WeatherCondition.THUNDERSTORM ->
+            R.drawable.ic_weather_thunderstorm
+
+        WeatherCondition.THUNDERSTORM_WITH_HAIL_SLIGHT,
+        WeatherCondition.THUNDERSTORM_WITH_HAIL_HEAVY ->
+            R.drawable.ic_weather_thunderstorm_with_hail
+
+        WeatherCondition.UNKNOWN ->
+            R.drawable.ic_weather_unknown
     }
-
-    return "$baseUrl/$iconPath$timeSegment$modeSuffix.png"
 }
