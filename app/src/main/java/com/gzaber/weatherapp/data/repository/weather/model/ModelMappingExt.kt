@@ -1,13 +1,5 @@
-package com.gzaber.weatherapp.data.repository.weather.util
+package com.gzaber.weatherapp.data.repository.weather.model
 
-import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeather
-import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeatherParameter
-import com.gzaber.weatherapp.data.repository.weather.model.DailyWeather
-import com.gzaber.weatherapp.data.repository.weather.model.DailyWeatherParameters
-import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
-import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeatherParameters
-import com.gzaber.weatherapp.data.repository.weather.model.TemperatureUnit
-import com.gzaber.weatherapp.data.repository.weather.model.WeatherCondition
 import com.gzaber.weatherapp.data.source.network.weather.model.NetworkCurrentWeather
 import com.gzaber.weatherapp.data.source.network.weather.model.NetworkDailyWeather
 import com.gzaber.weatherapp.data.source.network.weather.model.NetworkHourlyWeather
