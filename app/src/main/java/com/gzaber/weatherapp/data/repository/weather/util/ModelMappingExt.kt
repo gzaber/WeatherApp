@@ -15,7 +15,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 fun NetworkCurrentWeather.toExternal() = CurrentWeather(
-    date = LocalDateTime.parse(values.date),
+    isDay = values.isDay == 1,
     condition = WeatherCondition.fromCode(values.weatherCode),
     temperature = CurrentWeatherParameter(
         unit = units.temperature.toTemperatureUnit(),
@@ -40,6 +40,7 @@ fun NetworkHourlyWeather.toExternal() = HourlyWeather(
     hourly = List(values.time.size) { i ->
         HourlyWeatherParameters(
             time = LocalDateTime.parse(values.time[i]),
+            isDay = values.isDay[i] == 1,
             condition = WeatherCondition.fromCode(values.weatherCodes[i]),
             temperature = values.temperatures[i]
         )

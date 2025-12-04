@@ -3,8 +3,8 @@ package com.gzaber.weatherapp.data.source.network.weather.model
 import com.google.gson.annotations.SerializedName
 
 data class NetworkCurrentWeatherValues(
-    @SerializedName("time")
-    val date: String,
+    @SerializedName("is_day")
+    val isDay: Int,
     @SerializedName("weather_code")
     val weatherCode: Int,
     @SerializedName("temperature_2m")

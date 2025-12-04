@@ -1,7 +1,6 @@
 package com.gzaber.weatherapp.ui.weather.composable
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,8 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -53,7 +50,7 @@ fun WeatherContent(
             style = MaterialTheme.typography.headlineMedium
         )
         Image(
-            painter = painterResource(currentWeather.condition.toIconRes()),
+            painter = painterResource(currentWeather.condition.toIconRes(currentWeather.isDay)),
             contentDescription = "Weather condition image",
             modifier = Modifier
                 .size(256.dp)
@@ -112,7 +109,7 @@ fun WeatherContent(
                 items(hourlyWeather.hourly) { weather ->
                     WeatherForecastCard(
                         topText = weather.time.format(DateTimeFormatter.ofPattern("HH:mm")),
-                        iconRes = weather.condition.toIconRes(),
+                        iconRes = weather.condition.toIconRes(weather.isDay),
                         bottomText = "${weather.temperature.toInt()}${hourlyWeather.temperatureUnit.toSymbol()}"
                     )
                 }
