@@ -24,12 +24,12 @@ class SettingsViewModel(
     init {
         viewModelScope.launch {
             userPreferencesRepository.observeWeatherUnits()
-                .catch { _uiState.update { it.copy(isError = true) } }
+                .catch { _uiState.update { it.copy(settingsDataState = SettingsDataState.Error) } }
                 .collect { weatherUnitsPreferences ->
                     _uiState.update {
                         val weatherUnits = weatherUnitsPreferences.toWeatherUnits()
                         it.copy(
-                            weatherUnits = weatherUnits,
+                            settingsDataState = SettingsDataState.Success(weatherUnits),
                             selectedTemperatureUnit = weatherUnits.temperatureUnit.toSettingsDescription(),
                             selectedWindSpeedUnit = weatherUnits.windSpeedUnit.toSettingsDescription(),
                             selectedPrecipitationUnit = weatherUnits.precipitationUnit.toSettingsDescription()

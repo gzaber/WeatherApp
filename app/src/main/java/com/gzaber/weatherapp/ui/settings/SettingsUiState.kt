@@ -6,8 +6,14 @@ import com.gzaber.weatherapp.data.repository.weather.model.WeatherUnits
 import com.gzaber.weatherapp.data.repository.weather.model.WindSpeedUnit
 import com.gzaber.weatherapp.ui.settings.util.toSettingsDescription
 
+sealed interface SettingsDataState {
+    data class Success(val weatherUnits: WeatherUnits) : SettingsDataState
+    object Error : SettingsDataState
+    object Loading : SettingsDataState
+}
+
 data class SettingsUiState(
-    val weatherUnits: WeatherUnits = WeatherUnits(),
+    val settingsDataState: SettingsDataState = SettingsDataState.Loading,
     val temperatureUnitOptions: List<String> = TemperatureUnit.entries
         .filter { it.toSettingsDescription().isNotBlank() }
         .map { it.toSettingsDescription() },
@@ -19,6 +25,5 @@ data class SettingsUiState(
         .map { it.toSettingsDescription() },
     val selectedTemperatureUnit: String = "",
     val selectedWindSpeedUnit: String = "",
-    val selectedPrecipitationUnit: String = "",
-    val isError: Boolean = false
+    val selectedPrecipitationUnit: String = ""
 )
