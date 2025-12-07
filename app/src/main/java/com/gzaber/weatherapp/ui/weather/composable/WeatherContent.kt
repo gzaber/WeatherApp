@@ -19,6 +19,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.gzaber.weatherapp.R
@@ -46,12 +47,12 @@ fun WeatherContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Now",
+            text = stringResource(R.string.weather_now_label),
             style = MaterialTheme.typography.headlineMedium
         )
         Image(
             painter = painterResource(currentWeather.condition.toIconRes(currentWeather.isDay)),
-            contentDescription = "Weather condition image",
+            contentDescription = stringResource(R.string.weather_condition_image_content_description),
             modifier = Modifier
                 .size(256.dp)
                 .weight(1f)
@@ -73,24 +74,24 @@ fun WeatherContent(
         ) {
             WeatherParameter(
                 icon = R.drawable.ic_wind,
-                iconContentDescription = "Wind speed",
+                iconContentDescription = stringResource(R.string.wind_speed_icon_content_description),
                 value = "${currentWeather.windSpeed.value}",
                 unit = currentWeather.windSpeed.unit.toSymbol(),
-                description = "Wind"
+                description = stringResource(R.string.wind_label)
             )
             WeatherParameter(
                 icon = R.drawable.ic_humidity,
-                iconContentDescription = "Humidity",
+                iconContentDescription = stringResource(R.string.humidity_icon_content_description),
                 value = "${currentWeather.humidity.value}",
                 unit = currentWeather.humidity.unit.toSymbol(),
-                description = "Humidity"
+                description = stringResource(R.string.humidity_label)
             )
             WeatherParameter(
                 icon = R.drawable.ic_precipitation,
-                iconContentDescription = "Precipitation",
+                iconContentDescription = stringResource(R.string.precipitation_icon_content_description),
                 value = "${currentWeather.precipitation.value}",
                 unit = currentWeather.precipitation.unit.toSymbol(),
-                description = "Precipitation"
+                description = stringResource(R.string.precipitation_label)
             )
         }
         Column {

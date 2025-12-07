@@ -9,6 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -20,10 +21,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.gzaber.weatherapp.R
 import com.gzaber.weatherapp.ui.settings.composable.SettingsContent
-import com.gzaber.weatherapp.ui.util.composable.ErrorSnackbar
 import com.gzaber.weatherapp.ui.util.composable.LoadingIndicator
 import org.koin.androidx.compose.koinViewModel
 
@@ -31,25 +32,26 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun SettingsScreen(
     onNavigateBack: () -> Unit,
+    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     viewModel: SettingsViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val settingsDataState = uiState.settingsDataState
-    val snackbarHostState = remember { SnackbarHostState() }
+    val errorMessage = stringResource(R.string.unable_to_load_settings_error)
 
     LaunchedEffect(settingsDataState) {
         if (settingsDataState is SettingsDataState.Error) {
-            snackbarHostState.showSnackbar("Unable to load settings")
+            snackbarHostState.showSnackbar(errorMessage)
         }
     }
 
     Scaffold(
-        snackbarHost = { ErrorSnackbar(snackbarHostState = snackbarHostState) },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "Settings",
+                        text = stringResource(R.string.settings_screen_title),
                         fontWeight = FontWeight.Bold
                     )
                 },
@@ -57,7 +59,7 @@ fun SettingsScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
-                            contentDescription = "Navigate back"
+                            contentDescription = stringResource(R.string.navigate_back_content_description)
                         )
                     }
                 },
@@ -72,6 +74,7 @@ fun SettingsScreen(
                     contentPadding = contentPadding
                 )
             }
+
             is SettingsDataState.Success -> {
                 SettingsContent(
                     contentPadding = contentPadding,
@@ -86,6 +89,7 @@ fun SettingsScreen(
                     onPrecipitationUnitSelected = viewModel::onPrecipitationUnitSelected
                 )
             }
+
             is SettingsDataState.Error -> {
                 Box(
                     modifier = Modifier
@@ -93,7 +97,7 @@ fun SettingsScreen(
                         .padding(contentPadding),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Unable to load settings")
+                    Text(text = stringResource(R.string.unable_to_load_settings_error))
                 }
             }
         }

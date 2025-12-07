@@ -9,6 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -20,10 +21,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.gzaber.weatherapp.R
-import com.gzaber.weatherapp.ui.util.composable.ErrorSnackbar
 import com.gzaber.weatherapp.ui.util.composable.LoadingIndicator
 import com.gzaber.weatherapp.ui.weather.composable.WeatherContent
 import org.koin.androidx.compose.koinViewModel
@@ -33,20 +34,21 @@ import org.koin.androidx.compose.koinViewModel
 fun WeatherScreen(
     onNavigateToSettings: () -> Unit,
     onNavigateToSearch: () -> Unit,
+    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     viewModel: WeatherViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val weatherDataState = uiState.weatherDataState
-    val snackbarHostState = remember { SnackbarHostState() }
+    val errorMessage = stringResource(R.string.weather_data_fetch_error)
 
     LaunchedEffect(weatherDataState) {
         if (weatherDataState is WeatherDataState.Error) {
-            snackbarHostState.showSnackbar("Unable to fetch weather data")
+            snackbarHostState.showSnackbar(errorMessage)
         }
     }
 
     Scaffold(
-        snackbarHost = { ErrorSnackbar(snackbarHostState = snackbarHostState) },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
@@ -63,7 +65,7 @@ fun WeatherScreen(
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(
                             painter = painterResource(R.drawable.ic_settings),
-                            contentDescription = "Settings screen"
+                            contentDescription = stringResource(R.string.settings_screen_content_description)
                         )
                     }
                 },
@@ -71,7 +73,7 @@ fun WeatherScreen(
                     IconButton(onClick = onNavigateToSearch) {
                         Icon(
                             painter = painterResource(R.drawable.ic_search),
-                            contentDescription = "Search screen"
+                            contentDescription = stringResource(R.string.search_screen_content_description)
                         )
                     }
                 },
@@ -86,6 +88,7 @@ fun WeatherScreen(
                     contentPadding = contentPadding
                 )
             }
+
             is WeatherDataState.Success -> {
                 WeatherContent(
                     contentPadding = contentPadding,
@@ -94,6 +97,7 @@ fun WeatherScreen(
                     dailyWeather = weatherDataState.dailyWeather
                 )
             }
+
             is WeatherDataState.Error -> {
                 Box(
                     modifier = Modifier
@@ -101,7 +105,7 @@ fun WeatherScreen(
                         .padding(contentPadding),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Unable to fetch weather data")
+                    Text(text = stringResource(R.string.weather_data_fetch_error))
                 }
             }
         }

@@ -11,7 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.gzaber.weatherapp.R
 
 @Composable
 fun WeatherForecastCard(
@@ -28,7 +30,7 @@ fun WeatherForecastCard(
             Text(text = topText)
             Image(
                 painterResource(iconRes),
-                contentDescription = "Weather condition image",
+                contentDescription = stringResource(R.string.weather_condition_image_content_description),
                 modifier = Modifier.size(48.dp)
             )
             Text(text = bottomText)
