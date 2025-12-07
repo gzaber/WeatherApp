@@ -1,11 +1,12 @@
 package com.gzaber.weatherapp.ui.search
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gzaber.weatherapp.data.repository.locations.LocationsRepository
 import com.gzaber.weatherapp.data.repository.locations.model.Location
 import com.gzaber.weatherapp.data.repository.userpreferences.UserPreferencesRepository
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -20,28 +21,35 @@ class SearchViewModel(
     private val _uiState = MutableStateFlow(SearchUiState())
     val uiState = _uiState.asStateFlow()
 
+    private var searchJob: Job? = null
+
     init {
         observeLocationHistory()
     }
 
     fun onSearchTextChanged(query: String) {
         _uiState.update {
-            it.copy(searchText = query)
+            it.copy(query = query)
         }
+        searchJob?.cancel()
         if (query.isNotBlank()) {
-            searchLocation(query)
+            searchJob = viewModelScope.launch {
+                delay(300) // Debounce
+                searchLocation(query)
+            }
         } else {
             _uiState.update {
-                it.copy(searchResults = listOf())
+                it.copy(searchState = SearchState.Empty)
             }
         }
     }
 
     fun onSearchTextCleared() {
+        searchJob?.cancel()
         _uiState.update {
             it.copy(
-                searchText = "",
-                searchResults = listOf()
+                query = "",
+                searchState = SearchState.Empty
             )
         }
     }
@@ -56,47 +64,38 @@ class SearchViewModel(
             try {
                 locationsRepository.delete(location)
             } catch (_: Throwable) {
-                _uiState.update { it.copy(isError = true) }
+                _uiState.update { it.copy(searchState = SearchState.Error) }
             }
         }
     }
 
     private fun observeLocationHistory() {
-        _uiState.update { it.copy(isLoadingLocationHistory = true) }
         viewModelScope.launch {
             locationsRepository.observeAll()
-                .catch { e ->
-                    _uiState.update {
-                        it.copy(isError = true)
-                    }
-                    Log.e("API", "observeLocationHistory: $e")
+                .catch {
+                    _uiState.update { it.copy(searchState = SearchState.Error) }
                 }
                 .collect { locations ->
                     _uiState.update {
                         it.copy(
-                            locationHistory = locations.reversed(),
-                            isLoadingLocationHistory = false
+                            savedLocations = locations.reversed()
                         )
                     }
                 }
         }
     }
 
-    private fun searchLocation(query: String) {
-        _uiState.update { it.copy(isLoadingSearchResults = true) }
-        viewModelScope.launch {
-            try {
-                val searchResults = locationsRepository.search(query)
-                _uiState.update {
-                    it.copy(
-                        searchResults = searchResults,
-                        isLoadingSearchResults = false
-                    )
-                }
-            } catch (e: Throwable) {
-                _uiState.update { it.copy(isError = true) }
-                Log.e("API", "searchLocation: $e")
+    private suspend fun searchLocation(query: String) {
+        _uiState.update { it.copy(searchState = SearchState.Loading) }
+        try {
+            val searchResults = locationsRepository.search(query)
+            _uiState.update {
+                it.copy(
+                    searchState = SearchState.Success(searchResults)
+                )
             }
+        } catch (_: Throwable) {
+            _uiState.update { it.copy(searchState = SearchState.Error) }
         }
     }
 
@@ -110,7 +109,7 @@ class SearchViewModel(
                     country = location.country
                 )
             } catch (_: Throwable) {
-                _uiState.update { it.copy(isError = true) }
+                _uiState.update { it.copy(searchState = SearchState.Error) }
             }
         }
     }
@@ -120,7 +119,7 @@ class SearchViewModel(
             try {
                 locationsRepository.insert(location)
             } catch (_: Throwable) {
-                _uiState.update { it.copy(isError = true) }
+                _uiState.update { it.copy(searchState = SearchState.Error) }
             }
         }
     }

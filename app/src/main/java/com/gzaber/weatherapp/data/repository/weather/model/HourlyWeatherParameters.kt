@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 
 data class HourlyWeatherParameters(
     val time: LocalDateTime,
+    val isDay: Boolean,
     val condition: WeatherCondition,
     val temperature: Double
 )

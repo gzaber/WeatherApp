@@ -11,7 +11,6 @@ import com.gzaber.weatherapp.data.repository.weather.model.PrecipitationUnit
 import com.gzaber.weatherapp.data.repository.weather.model.TemperatureUnit
 import com.gzaber.weatherapp.data.repository.weather.model.WeatherCondition
 import com.gzaber.weatherapp.data.repository.weather.model.WindSpeedUnit
-import java.time.LocalDateTime
 
 fun defaultLocationPreferences() = LocationPreferences(
     latitude = 52.22977,
@@ -27,7 +26,7 @@ fun defaultWeatherUnitsPreferences() = WeatherUnitsPreferences(
 )
 
 fun defaultCurrentWeather() = CurrentWeather(
-    date = LocalDateTime.MIN,
+    isDay = true,
     condition = WeatherCondition.UNKNOWN,
     temperature = CurrentWeatherParameter(unit = TemperatureUnit.UNKNOWN, value = 0.0),
     humidity = CurrentWeatherParameter(unit = HumidityUnit.UNKNOWN, 0),

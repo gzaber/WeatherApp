@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.gzaber.weatherapp.R
 
 @Composable
 fun SettingsContent(
@@ -32,19 +34,19 @@ fun SettingsContent(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             RadioButtonGroup(
-                title = "Temperature unit",
+                title = stringResource(R.string.temperature_unit_title),
                 radioOptions = temperatureUnitOptions,
                 selectedOption = selectedTemperatureUnit,
                 onOptionSelected = onTemperatureUnitSelected
             )
             RadioButtonGroup(
-                title = "Wind speed unit",
+                title = stringResource(R.string.wind_speed_unit_title),
                 radioOptions = windSpeedUnitOptions,
                 selectedOption = selectedWindSpeedUnit,
                 onOptionSelected = onWindSpeedUnitSelected
             )
             RadioButtonGroup(
-                title = "Precipitation unit",
+                title = stringResource(R.string.precipitation_unit_title),
                 radioOptions = precipitationUnitOptions,
                 selectedOption = selectedPrecipitationUnit,
                 onOptionSelected = onPrecipitationUnitSelected

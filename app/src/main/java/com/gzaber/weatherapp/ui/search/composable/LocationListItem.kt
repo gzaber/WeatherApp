@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.gzaber.weatherapp.R
 import com.gzaber.weatherapp.data.repository.locations.model.Location
 
@@ -29,7 +30,7 @@ fun LocationListItem(
             leadingContent = {
                 Icon(
                     painter = painterResource(R.drawable.ic_location),
-                    contentDescription = "Location"
+                    contentDescription = stringResource(R.string.location_icon_content_description)
                 )
             },
             modifier = Modifier.clickable { onLocationClick(location) }

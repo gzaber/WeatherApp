@@ -5,20 +5,22 @@ import com.gzaber.weatherapp.data.repository.userpreferences.model.WeatherUnitsP
 import com.gzaber.weatherapp.data.repository.weather.model.CurrentWeather
 import com.gzaber.weatherapp.data.repository.weather.model.DailyWeather
 import com.gzaber.weatherapp.data.repository.weather.model.HourlyWeather
-import com.gzaber.weatherapp.ui.util.defaultCurrentWeather
-import com.gzaber.weatherapp.ui.util.defaultDailyWeather
-import com.gzaber.weatherapp.ui.util.defaultHourlyWeather
 import com.gzaber.weatherapp.ui.util.defaultLocationPreferences
 import com.gzaber.weatherapp.ui.util.defaultWeatherUnitsPreferences
 
+sealed interface WeatherDataState {
+    data class Success(
+        val currentWeather: CurrentWeather,
+        val hourlyWeather: HourlyWeather,
+        val dailyWeather: DailyWeather
+    ) : WeatherDataState
+
+    object Error : WeatherDataState
+    object Loading : WeatherDataState
+}
+
 data class WeatherUiState(
+    val weatherDataState: WeatherDataState = WeatherDataState.Loading,
     val locationPreferences: LocationPreferences = defaultLocationPreferences(),
-    val weatherUnitsPreferences: WeatherUnitsPreferences = defaultWeatherUnitsPreferences(),
-    val currentWeather: CurrentWeather = defaultCurrentWeather(),
-    val hourlyWeather: HourlyWeather = defaultHourlyWeather(),
-    val dailyWeather: DailyWeather = defaultDailyWeather(),
-    val isLoadingCurrentWeather: Boolean = true,
-    val isLoadingHourlyWeather: Boolean = true,
-    val isLoadingDailyWeather: Boolean = true,
-    val isError: Boolean = false
+    val weatherUnitsPreferences: WeatherUnitsPreferences = defaultWeatherUnitsPreferences()
 )

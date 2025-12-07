@@ -1,19 +1,27 @@
 package com.gzaber.weatherapp.ui.weather
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.gzaber.weatherapp.R
@@ -26,18 +34,25 @@ import org.koin.androidx.compose.koinViewModel
 fun WeatherScreen(
     onNavigateToSettings: () -> Unit,
     onNavigateToSearch: () -> Unit,
+    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     viewModel: WeatherViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val weatherDataState = uiState.weatherDataState
+    val errorMessage = stringResource(R.string.weather_data_fetch_error)
+
+    LaunchedEffect(weatherDataState) {
+        if (weatherDataState is WeatherDataState.Error) {
+            snackbarHostState.showSnackbar(errorMessage)
+        }
+    }
 
     Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    if (uiState.isLoadingCurrentWeather.not() ||
-                        uiState.isLoadingHourlyWeather.not() ||
-                        uiState.isLoadingDailyWeather.not()
-                    ) {
+                    if (weatherDataState is WeatherDataState.Success) {
                         Text(
                             text = "${uiState.locationPreferences.name}, ${uiState.locationPreferences.country}",
                             fontWeight = FontWeight.Bold,
@@ -50,7 +65,7 @@ fun WeatherScreen(
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(
                             painter = painterResource(R.drawable.ic_settings),
-                            contentDescription = "Settings screen"
+                            contentDescription = stringResource(R.string.settings_screen_content_description)
                         )
                     }
                 },
@@ -58,7 +73,7 @@ fun WeatherScreen(
                     IconButton(onClick = onNavigateToSearch) {
                         Icon(
                             painter = painterResource(R.drawable.ic_search),
-                            contentDescription = "Search screen"
+                            contentDescription = stringResource(R.string.search_screen_content_description)
                         )
                     }
                 },
@@ -66,18 +81,33 @@ fun WeatherScreen(
             )
         }
     ) { contentPadding ->
-        if (uiState.isLoadingCurrentWeather || uiState.isLoadingHourlyWeather || uiState.isLoadingDailyWeather) {
-            LoadingIndicator(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = contentPadding
-            )
-        } else {
-            WeatherContent(
-                contentPadding = contentPadding,
-                currentWeather = uiState.currentWeather,
-                hourlyWeather = uiState.hourlyWeather,
-                dailyWeather = uiState.dailyWeather
-            )
+        when (weatherDataState) {
+            is WeatherDataState.Loading -> {
+                LoadingIndicator(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = contentPadding
+                )
+            }
+
+            is WeatherDataState.Success -> {
+                WeatherContent(
+                    contentPadding = contentPadding,
+                    currentWeather = weatherDataState.currentWeather,
+                    hourlyWeather = weatherDataState.hourlyWeather,
+                    dailyWeather = weatherDataState.dailyWeather
+                )
+            }
+
+            is WeatherDataState.Error -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(contentPadding),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = stringResource(R.string.weather_data_fetch_error))
+                }
+            }
         }
     }
 }

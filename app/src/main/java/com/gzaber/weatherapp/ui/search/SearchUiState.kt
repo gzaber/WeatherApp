@@ -2,11 +2,15 @@ package com.gzaber.weatherapp.ui.search
 
 import com.gzaber.weatherapp.data.repository.locations.model.Location
 
+sealed interface SearchState {
+    data class Success(val locations: List<Location>) : SearchState
+    object Error : SearchState
+    object Loading : SearchState
+    object Empty : SearchState
+}
+
 data class SearchUiState(
-    val searchText: String = "",
-    val searchResults: List<Location> = emptyList(),
-    val locationHistory: List<Location> = emptyList(),
-    val isLoadingSearchResults: Boolean = false,
-    val isLoadingLocationHistory: Boolean = false,
-    val isError: Boolean = false
+    val searchState: SearchState = SearchState.Empty,
+    val savedLocations: List<Location> = emptyList(),
+    val query: String = ""
 )

@@ -1,22 +1,20 @@
 [versions]
-agp = "8.13.0"
-kotlin = "2.2.10"
+agp = "8.13.1"
+kotlin = "2.2.21"
 coreKtx = "1.17.0"
-lifecycleRuntimeKtx = "2.9.3"
-activityCompose = "1.10.1"
-composeBom = "2025.08.01"
-room = "2.7.2"
-dataStore = "1.1.7"
+lifecycleRuntimeKtx = "2.10.0"
+activityCompose = "1.12.0"
+composeBom = "2025.11.01"
+room = "2.8.4"
+dataStore = "1.2.0"
 protobuf = "0.9.5"
-protobufJavaLite = "4.32.0"
+protobufJavaLite = "4.33.1"
 ksp = "2.2.10-2.0.2"
 retrofit = "3.0.0"
 koin = "4.1.1"
-navigation = "2.9.3"
-serialization = "2.2.10"
+navigation = "2.9.6"
+serialization = "2.2.21"
 serializationJson = "1.9.0"
-coilCompose = "3.3.0"
-coilNetworkOkHttp = "3.3.0"
 junit = "4.13.2"
 
 [libraries]
@@ -40,8 +38,6 @@ koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = 
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationJson" }
-coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilCompose" }
-coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coilNetworkOkHttp" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 

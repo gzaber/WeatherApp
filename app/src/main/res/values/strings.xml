@@ -1,4 +1,37 @@
 <resources>
     <string name="app_name">WeatherApp</string>
     <string name="loading_indicator_content_description">Loading indicator</string>
+    <string name="weather_data_fetch_error">Unable to fetch weather data</string>
+    <string name="settings_screen_title">Settings</string>
+    <string name="settings_screen_content_description">Settings screen</string>
+    <string name="search_screen_content_description">Search screen</string>
+    <string name="navigate_back_content_description">Navigate back</string>
+    <string name="search_screen_title">Search</string>
+    <string name="generic_error_message">Something went wrong</string>
+    <string name="recent_searches_title">Recent searches</string>
+    <string name="no_history_message">There is no history yet</string>
+    <string name="unable_to_load_settings_error">Unable to load settings</string>
+    
+    <!-- Weather Content -->
+    <string name="weather_now_label">Now</string>
+    <string name="weather_condition_image_content_description">Weather condition image</string>
+    <string name="wind_speed_icon_content_description">Wind speed</string>
+    <string name="wind_label">Wind</string>
+    <string name="humidity_icon_content_description">Humidity</string>
+    <string name="humidity_label">Humidity</string>
+    <string name="precipitation_icon_content_description">Precipitation</string>
+    <string name="precipitation_label">Precipitation</string>
+
+    <!-- Search Bar -->
+    <string name="search_placeholder">Search</string>
+    <string name="search_icon_content_description">Search icon</string>
+    <string name="clear_search_text_content_description">Clear search text</string>
+
+    <!-- Settings Content -->
+    <string name="temperature_unit_title">Temperature unit</string>
+    <string name="wind_speed_unit_title">Wind speed unit</string>
+    <string name="precipitation_unit_title">Precipitation unit</string>
+    
+    <!-- Location List -->
+    <string name="location_icon_content_description">Location</string>
 </resources>
