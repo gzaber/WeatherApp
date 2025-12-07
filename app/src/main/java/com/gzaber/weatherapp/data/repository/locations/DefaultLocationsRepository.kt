@@ -14,7 +14,7 @@ class DefaultLocationsRepository(
 ) : LocationsRepository {
 
     override suspend fun search(name: String): List<Location> =
-        networkDataSource.search(name).results.map { it.toExternal() }
+        networkDataSource.search(name).results?.map { it.toExternal() } ?: emptyList()
 
     override suspend fun insert(location: Location) = localDataSource.insert(location.toLocal())
 
