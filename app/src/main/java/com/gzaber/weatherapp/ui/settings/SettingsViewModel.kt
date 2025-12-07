@@ -41,25 +41,37 @@ class SettingsViewModel(
 
     fun onTemperatureUnitSelected(description: String) {
         viewModelScope.launch {
-            userPreferencesRepository.updateTemperatureUnit(
-                description.toSettingsTemperatureUnit().name
-            )
+            try {
+                userPreferencesRepository.updateTemperatureUnit(
+                    description.toSettingsTemperatureUnit().name
+                )
+            } catch (_: Throwable) {
+                _uiState.update { it.copy(settingsDataState = SettingsDataState.Error) }
+            }
         }
     }
 
     fun onWindSpeedUnitSelected(description: String) {
         viewModelScope.launch {
-            userPreferencesRepository.updateWindSpeedUnit(
-                description.toSettingsWindSpeedUnit().name
-            )
+            try {
+                userPreferencesRepository.updateWindSpeedUnit(
+                    description.toSettingsWindSpeedUnit().name
+                )
+            } catch (_: Throwable) {
+                _uiState.update { it.copy(settingsDataState = SettingsDataState.Error) }
+            }
         }
     }
 
     fun onPrecipitationUnitSelected(description: String) {
         viewModelScope.launch {
-            userPreferencesRepository.updatePrecipitationUnit(
-                description.toSettingsPrecipitationUnit().name
-            )
+            try {
+                userPreferencesRepository.updatePrecipitationUnit(
+                    description.toSettingsPrecipitationUnit().name
+                )
+            } catch (_: Throwable) {
+                _uiState.update { it.copy(settingsDataState = SettingsDataState.Error) }
+            }
         }
     }
 }

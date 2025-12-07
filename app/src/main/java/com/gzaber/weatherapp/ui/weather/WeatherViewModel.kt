@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 
 class WeatherViewModel(
     private val weatherRepository: WeatherRepository,
@@ -49,37 +50,39 @@ class WeatherViewModel(
         _uiState.update { it.copy(weatherDataState = WeatherDataState.Loading) }
         viewModelScope.launch {
             try {
-                val currentState = _uiState.value
-                val currentWeatherDeferred = async {
-                    weatherRepository.getCurrentWeather(
-                        latitude = currentState.locationPreferences.latitude,
-                        longitude = currentState.locationPreferences.longitude,
-                        weatherUnits = currentState.weatherUnitsPreferences.toWeatherUnits()
-                    )
-                }
-                val hourlyWeatherDeferred = async {
-                    weatherRepository.getHourlyWeather(
-                        latitude = currentState.locationPreferences.latitude,
-                        longitude = currentState.locationPreferences.longitude,
-                        temperatureUnit = currentState.weatherUnitsPreferences.toWeatherUnits().temperatureUnit
-                    )
-                }
-                val dailyWeatherDeferred = async {
-                    weatherRepository.getDailyWeather(
-                        latitude = currentState.locationPreferences.latitude,
-                        longitude = currentState.locationPreferences.longitude,
-                        temperatureUnit = currentState.weatherUnitsPreferences.toWeatherUnits().temperatureUnit
-                    )
-                }
-
-                _uiState.update {
-                    it.copy(
-                        weatherDataState = WeatherDataState.Success(
-                            currentWeather = currentWeatherDeferred.await(),
-                            hourlyWeather = hourlyWeatherDeferred.await(),
-                            dailyWeather = dailyWeatherDeferred.await()
+                supervisorScope {
+                    val currentState = _uiState.value
+                    val currentWeatherDeferred = async {
+                        weatherRepository.getCurrentWeather(
+                            latitude = currentState.locationPreferences.latitude,
+                            longitude = currentState.locationPreferences.longitude,
+                            weatherUnits = currentState.weatherUnitsPreferences.toWeatherUnits()
                         )
-                    )
+                    }
+                    val hourlyWeatherDeferred = async {
+                        weatherRepository.getHourlyWeather(
+                            latitude = currentState.locationPreferences.latitude,
+                            longitude = currentState.locationPreferences.longitude,
+                            temperatureUnit = currentState.weatherUnitsPreferences.toWeatherUnits().temperatureUnit
+                        )
+                    }
+                    val dailyWeatherDeferred = async {
+                        weatherRepository.getDailyWeather(
+                            latitude = currentState.locationPreferences.latitude,
+                            longitude = currentState.locationPreferences.longitude,
+                            temperatureUnit = currentState.weatherUnitsPreferences.toWeatherUnits().temperatureUnit
+                        )
+                    }
+
+                    _uiState.update {
+                        it.copy(
+                            weatherDataState = WeatherDataState.Success(
+                                currentWeather = currentWeatherDeferred.await(),
+                                hourlyWeather = hourlyWeatherDeferred.await(),
+                                dailyWeather = dailyWeatherDeferred.await()
+                            )
+                        )
+                    }
                 }
             } catch (_: Throwable) {
                 _uiState.update { it.copy(weatherDataState = WeatherDataState.Error) }
