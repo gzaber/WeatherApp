@@ -2,9 +2,10 @@ package com.gzaber.weatherapp.data.repository.userpreferences
 
 import androidx.datastore.core.DataStore
 import com.gzaber.weatherapp.UserPreferences
-import io.mockk.coVerify
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.slot
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
@@ -18,30 +19,49 @@ class DefaultUserPreferencesRepositoryTest {
 
     @Test
     fun updateLocation_updatesDataStore() = runTest {
+        val transformSlot = slot<suspend (UserPreferences) -> UserPreferences>()
+        coEvery { settingsStore.updateData(capture(transformSlot)) } returns UserPreferences.getDefaultInstance()
+
         repository.updateLocation(52.23, 21.01, "Warsaw", "Poland")
 
-        coVerify { settingsStore.updateData(any()) }
+        val result = transformSlot.captured(UserPreferences.getDefaultInstance())
+        assertEquals(52.23, result.latitude, 0.0)
+        assertEquals(21.01, result.longitude, 0.0)
+        assertEquals("Warsaw", result.name)
+        assertEquals("Poland", result.country)
     }
 
     @Test
     fun updateTemperatureUnit_updatesDataStore() = runTest {
+        val transformSlot = slot<suspend (UserPreferences) -> UserPreferences>()
+        coEvery { settingsStore.updateData(capture(transformSlot)) } returns UserPreferences.getDefaultInstance()
+
         repository.updateTemperatureUnit("celsius")
 
-        coVerify { settingsStore.updateData(any()) }
+        val result = transformSlot.captured(UserPreferences.getDefaultInstance())
+        assertEquals("celsius", result.temperatureUnit)
     }
 
     @Test
     fun updateWindSpeedUnit_updatesDataStore() = runTest {
+        val transformSlot = slot<suspend (UserPreferences) -> UserPreferences>()
+        coEvery { settingsStore.updateData(capture(transformSlot)) } returns UserPreferences.getDefaultInstance()
+
         repository.updateWindSpeedUnit("kmh")
 
-        coVerify { settingsStore.updateData(any()) }
+        val result = transformSlot.captured(UserPreferences.getDefaultInstance())
+        assertEquals("kmh", result.windSpeedUnit)
     }
 
     @Test
     fun updatePrecipitationUnit_updatesDataStore() = runTest {
+        val transformSlot = slot<suspend (UserPreferences) -> UserPreferences>()
+        coEvery { settingsStore.updateData(capture(transformSlot)) } returns UserPreferences.getDefaultInstance()
+
         repository.updatePrecipitationUnit("mm")
 
-        coVerify { settingsStore.updateData(any()) }
+        val result = transformSlot.captured(UserPreferences.getDefaultInstance())
+        assertEquals("mm", result.precipitationUnit)
     }
 
     @Test
@@ -58,6 +78,8 @@ class DefaultUserPreferencesRepositoryTest {
 
         assertEquals("Warsaw", result.name)
         assertEquals("Poland", result.country)
+        assertEquals(52.23, result.latitude, 0.0)
+        assertEquals(21.01, result.longitude, 0.0)
     }
 
     @Test
