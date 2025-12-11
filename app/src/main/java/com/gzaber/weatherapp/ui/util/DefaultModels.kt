@@ -4,10 +4,10 @@ import com.gzaber.weatherapp.data.repository.userpreferences.model.LocationPrefe
 import com.gzaber.weatherapp.data.repository.userpreferences.model.WeatherUnitsPreferences
 
 fun defaultLocationPreferences() = LocationPreferences(
-    latitude = 52.22977,
-    longitude = 21.01178,
-    name = "Warsaw",
-    country = "Poland"
+    latitude = 0.0,
+    longitude = 0.0,
+    name = "",
+    country = ""
 )
 
 fun defaultWeatherUnitsPreferences() = WeatherUnitsPreferences(
