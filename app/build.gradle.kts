@@ -45,6 +45,9 @@ android {
     buildFeatures {
         compose = true
     }
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
 }
 
 dependencies {
@@ -78,6 +81,7 @@ dependencies {
     testImplementation(libs.koin.test)
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.test.core.ktx)
+    testImplementation(libs.androidx.ui.test.junit4)
 }
 
 protobuf {
