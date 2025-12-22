@@ -27,7 +27,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @RunWith(RobolectricTestRunner::class)
-@Config(application = TestApplication::class)
+@Config(application = TestApplication::class, qualifiers = "w1080dp-h2400dp-480dpi")
 class WeatherContentTest {
 
     @get:Rule(order = 0)
@@ -36,39 +36,39 @@ class WeatherContentTest {
     @get:Rule(order = 1)
     val composeTestRule = createComposeRule()
 
+    val currentWeather = CurrentWeather(
+        isDay = true,
+        condition = WeatherCondition.CLEAR_SKY,
+        temperature = CurrentWeatherParameter(TemperatureUnit.CELSIUS, 20.0),
+        humidity = CurrentWeatherParameter(HumidityUnit.PERCENT, 50),
+        windSpeed = CurrentWeatherParameter(WindSpeedUnit.KILOMETERS_PER_HOUR, 10.0),
+        precipitation = CurrentWeatherParameter(PrecipitationUnit.MILLIMETER, 0.0)
+    )
+    val hourlyWeather = HourlyWeather(
+        temperatureUnit = TemperatureUnit.CELSIUS,
+        hourly = listOf(
+            HourlyWeatherParameters(
+                time = LocalDateTime.now(),
+                isDay = true,
+                condition = WeatherCondition.CLEAR_SKY,
+                temperature = 22.0
+            )
+        )
+    )
+    val dailyWeather = DailyWeather(
+        temperatureUnit = TemperatureUnit.CELSIUS,
+        daily = listOf(
+            DailyWeatherParameters(
+                date = LocalDate.now(),
+                condition = WeatherCondition.CLEAR_SKY,
+                minTemperature = 15.0,
+                maxTemperature = 25.0
+            )
+        )
+    )
+
     @Test
     fun weatherContent_displaysAllData() {
-        val currentWeather = CurrentWeather(
-            isDay = true,
-            condition = WeatherCondition.CLEAR_SKY,
-            temperature = CurrentWeatherParameter(TemperatureUnit.CELSIUS, 20.0),
-            humidity = CurrentWeatherParameter(HumidityUnit.PERCENT, 50),
-            windSpeed = CurrentWeatherParameter(WindSpeedUnit.KILOMETERS_PER_HOUR, 10.0),
-            precipitation = CurrentWeatherParameter(PrecipitationUnit.MILLIMETER, 0.0)
-        )
-        val hourlyWeather = HourlyWeather(
-            temperatureUnit = TemperatureUnit.CELSIUS,
-            hourly = listOf(
-                HourlyWeatherParameters(
-                    time = LocalDateTime.now(),
-                    isDay = true,
-                    condition = WeatherCondition.CLEAR_SKY,
-                    temperature = 22.0
-                )
-            )
-        )
-        val dailyWeather = DailyWeather(
-            temperatureUnit = TemperatureUnit.CELSIUS,
-            daily = listOf(
-                DailyWeatherParameters(
-                    date = LocalDate.now(),
-                    condition = WeatherCondition.CLEAR_SKY,
-                    minTemperature = 15.0,
-                    maxTemperature = 25.0
-                )
-            )
-        )
-
         with(composeTestRule) {
             setContent {
                 WeatherContent(
