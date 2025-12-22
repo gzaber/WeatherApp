@@ -21,6 +21,7 @@ coroutinesTest = "1.10.2"
 koinTest = "4.1.1"
 robolectric = "4.16"
 coreKtxVersion = "1.7.0"
+kover = "0.9.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -59,3 +60,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 google-protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }

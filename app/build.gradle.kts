@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.google.protobuf)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.kover)
 }
 
 android {
@@ -96,6 +97,21 @@ protobuf {
                     option("lite")
                 }
             }
+        }
+    }
+}
+
+kover {
+    reports {
+        filters {
+            excludes {
+                classes("*ComposableSingletons*", "*_Impl*")
+                annotatedBy("*Preview*")
+            }
+        }
+        total {
+            xml { onCheck = true }
+            html { onCheck = true }
         }
     }
 }
