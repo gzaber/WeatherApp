@@ -11,6 +11,7 @@
     <string name="recent_searches_title">Recent searches</string>
     <string name="no_history_message">There is no history yet</string>
     <string name="unable_to_load_settings_error">Unable to load settings</string>
+    <string name="unable_to_load_location_data_error">Unable to load location data</string>
     
     <!-- Weather Content -->
     <string name="weather_now_label">Now</string>

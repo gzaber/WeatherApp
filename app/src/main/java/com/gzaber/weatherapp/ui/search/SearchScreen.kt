@@ -49,7 +49,7 @@ fun SearchScreen(
     }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState)  },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
@@ -105,7 +105,7 @@ fun SearchScreen(
                     is SearchState.Error -> {
                         Box(modifier = Modifier.fillMaxSize()) {
                             Text(
-                                text = stringResource(R.string.generic_error_message),
+                                text = stringResource(R.string.unable_to_load_location_data_error),
                                 modifier = Modifier.align(Alignment.Center)
                             )
                         }
