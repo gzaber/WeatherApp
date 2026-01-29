@@ -12,7 +12,7 @@
     <string name="no_history_message">There is no history yet</string>
     <string name="unable_to_load_settings_error">Unable to load settings</string>
     <string name="unable_to_load_location_data_error">Unable to load location data</string>
-    
+
     <!-- Weather Content -->
     <string name="weather_now_label">Now</string>
     <string name="weather_condition_image_content_description">Weather condition image</string>
@@ -24,7 +24,7 @@
     <string name="precipitation_label">Precipitation</string>
 
     <!-- Search Bar -->
-    <string name="search_placeholder">Search</string>
+    <string name="search_placeholder">Search something</string>
     <string name="search_icon_content_description">Search icon</string>
     <string name="clear_search_text_content_description">Clear search text</string>
 
@@ -32,7 +32,7 @@
     <string name="temperature_unit_title">Temperature unit</string>
     <string name="wind_speed_unit_title">Wind speed unit</string>
     <string name="precipitation_unit_title">Precipitation unit</string>
-    
+
     <!-- Location List -->
     <string name="location_icon_content_description">Location</string>
 </resources>
