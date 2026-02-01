@@ -37,7 +37,7 @@ fun SettingsScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val settingsDataState = uiState.settingsDataState
-    val errorMessage = stringResource(R.string.unable_to_load_settings_error)
+    val errorMessage = stringResource(R.string.generic_error_message)
 
     LaunchedEffect(settingsDataState) {
         if (settingsDataState is SettingsDataState.Error) {

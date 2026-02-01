@@ -39,7 +39,7 @@ fun WeatherScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val weatherDataState = uiState.weatherDataState
-    val errorMessage = stringResource(R.string.weather_data_fetch_error)
+    val errorMessage = stringResource(R.string.generic_error_message)
 
     LaunchedEffect(weatherDataState) {
         if (weatherDataState is WeatherDataState.Error) {

@@ -1,7 +1,5 @@
 package com.gzaber.weatherapp.data.repository.weather.model
 
-import java.time.LocalDateTime
-
 data class CurrentWeather(
     val isDay: Boolean,
     val condition: WeatherCondition,

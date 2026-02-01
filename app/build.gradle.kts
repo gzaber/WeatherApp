@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.google.protobuf)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.kover)
 }
 
 android {
@@ -45,6 +46,9 @@ android {
     buildFeatures {
         compose = true
     }
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
 }
 
 dependencies {
@@ -59,6 +63,7 @@ dependencies {
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.core.ktx)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.datastore)
     implementation(libs.google.protobuf.javalite)
@@ -72,6 +77,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
 
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.test.core.ktx)
+    testImplementation(libs.androidx.ui.test.junit4)
 }
 
 protobuf {
@@ -86,6 +97,21 @@ protobuf {
                     option("lite")
                 }
             }
+        }
+    }
+}
+
+kover {
+    reports {
+        filters {
+            excludes {
+                classes("*ComposableSingletons*", "*_Impl*")
+                annotatedBy("*Preview*")
+            }
+        }
+        total {
+            xml { onCheck = true }
+            html { onCheck = true }
         }
     }
 }
